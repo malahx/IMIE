@@ -1,0 +1,28 @@
+TP1)
+
+Nous gérons une animalerie, avec les règles suivantes :
+* nous vendons 3 espèces différentes :
+** chiens,
+** chats,
+** serpents;
+* certains clients reviennent, d'autres non;
+* ils peuvent acheter 1 ou plusieurs animaux d'un coup;
+* nous ne "pointons" pas les clients n'ayant rien d'acheter;
+* on doit pouvoir fournir des historiques de vente (qui a acheter quoi 
+et à quel jour);
+* tous les animaux sont vendus à prix unique (1 500 € / unité).
+
+TP2)
+
+Quelques éléments ont changées dans notre gestion :
+* nous vendons maintenant les animaux avec un prix par défaut dépendant 
+de son espèce;
+* nous pouvons surcharger le prix d'un animal;
+* nous vendons désormais des : souris, rats, vaches, chevaux, chèvres, 
+cochon-d'inde, tigres, pandas roux, baleines à bosse, écureils;
+* nous avons ouvert 2 nouveaux sites dans d'autres villes, les clients 
+ne sont pas les mêmes (nous ne conservons qu'une unique bdd 
+centralisée);
+* nous pouvons récupérer un client venant d'un autre site;
+* nous avons remarqué que quand on n'a plus de serpent, on ne 
+peut plus en vendre, allons donc dorénavant gérer les stocks.
