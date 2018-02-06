@@ -1,0 +1,9 @@
+.logo .pander {
+	width: 50px;
+}
+.upperfirst::first-letter {
+	text-transform: uppercase;
+}
+.upperall {
+	text-transform: uppercase;
+}

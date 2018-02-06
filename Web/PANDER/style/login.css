@@ -1,0 +1,99 @@
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.center {
+    text-align: center;
+}
+
+.pander {
+    width: 400px;
+}
+
+.border {
+    border: 2px solid brown;
+}
+
+header a {
+    text-decoration: none;
+}
+
+img.center {
+    display: block;
+    margin: auto;
+}
+
+body {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+}
+
+header {
+    width: 100%;
+    height: 100px;
+}
+
+main>aside {
+    width: 50%;
+}
+
+main>aside>img {
+    float: left;
+    width: 70%;
+    margin: auto;
+}
+
+main>div {
+    float: right;
+    width: 50%;
+}
+
+form {
+    display: table;
+    width: 90%;
+    margin: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+form>div {
+    display: table-row;
+    width: 100%;
+}
+
+form>div>label, form>div>a {
+    display: table-cell;
+    width: 40%;
+}
+
+form>div>label {
+    font-weight: bold;
+}
+
+form>div>input {
+    display: table-cell;
+    width: 100%;
+}
+
+form>div>input#btn {
+    float: right;
+    width: auto;
+    margin-top: 10px;
+    margin-top: 10px;
+}
+
+#register img {
+	width: 100%;
+}
+#register div {
+	display: flex;
+}
