@@ -1,0 +1,134 @@
+ALGORITHME TP10
+CONSTANTE
+	ENTIER: NB_JOUEURS 	<- 3
+	ENTIER: NB_PARAM 	<- 6
+	ENTIER: DMG 		<- 0
+	ENTIER: ARM_PA 		<- 1
+	ENTIER: DEF 		<- 2
+	ENTIER: PV 			<- 3
+	ENTIER: PA 			<- 4
+	ENTIER: ESQ			<- 5
+
+	TABLEAU<CHAINE>: ARMES{"concasseur", "pelle", "gatling", "batte de cricket", "blaster"}
+	TABLEAU<ENTIER>: ARMES_VAL{(3, 4), (2, 1), (10, 6), (1, 1), (6, 3)}
+	TABLEAU<CHAINE>: ARMURES{"Gilet bleu", "Armure de cuir", "Armure de plaque"}
+	TABLEAU<ENTIER>: ARMURES_DEF{1, 2, 4}
+
+VARIABLE
+	ENTIER: i
+	ENTIER: j
+	ENTIER: saisie
+	ENTIER: dmg
+	ENTIER: dmgRed
+	ENTIER: paArm
+	ENTIER: pa
+	ENTIER: win
+	ENTIER: esq
+	TABLEAU<ENTIER>[NB_JOUEURS][NB_PARAM]: joueurs
+DEBUT
+	
+
+	
+	Ecrire("Nouveau tour")
+	Ecrire("Saisie")
+	POUR i DE 0 A NB_JOUEURS -1 PAS DE 1 FAIRE
+		Ecrire("Joueur N°" & i)
+
+		FAIRE
+			Ecrire("	Sélectionnez une arme")
+			POUR j DE 0 A 5 -1 PAS DE 1 FAIRE
+				Ecrire("	" + j+1 + ARMES[j])
+			FINPOUR
+			Lire(saisie)
+		TANTQUE saisie < 1 OU saisie > 5
+
+		saisie = saisie -1
+		Ecrire("	Arme sélectionnée : " + ARMES[saisie])
+		joueurs[i][DMG] 	<- ARMES_VAL[saisie][0]
+		joueurs[i][ARM_PA] 	<- ARMES_VAL[saisie][1]
+
+		FAIRE
+			Ecrire("	Sélectionnez une armure")
+			POUR j DE 0 A 3 -1 PAS DE 1 FAIRE
+				Ecrire("	" + j+1 + ARMURES[j])
+			FINPOUR
+			Lire(saisie)
+		TANTQUE (saisie < 1 OU saisie > 3)
+
+		saisie = saisie -1
+		Ecrire("	Armure sélectionnée : " + ARMURES[saisie])
+		joueurs[i][DEF] <- ARMURES_DEF[saisie]
+
+		Ecrire("	Sélectionnez les points de vie")
+		Lire(joueurs[i][PV])
+
+		Ecrire("	Sélectionnez les points d'actions")
+		Lire(joueurs[i][PA])
+
+		FAIRE
+			Ecrire("	Sélectionnez le taux d'esquive (0 à 100)")
+			Lire(saisie)
+		TANTQUE (saisie < 0 OU saisie > 100)
+		joueurs[i][ESQ] <- saisie
+
+	FINPOUR
+
+	Ecrire("Attaque")
+
+	i <- 0
+
+	TANTQUE win = null FAIRE //bug si tout le monde est mort ;)
+
+		i <- i + 1
+		SI i > NB_JOUEURS -1 ALORS
+			i <- 0
+		FINSI
+
+		SI joueurs[i][PV] > 0 ALORS
+
+			dmg 		<- joueurs[i][DMG]
+			paArm 		<- joueurs[i][ARM_PA]
+			pa 			<- joueurs[i][PA] -1
+
+			TANTQUE pa > paArm ET win = null FAIRE
+
+				j <- i
+
+				FAIRE
+					j <- j + 1
+					SI j > NB_JOUEURS -1 ALORS
+						j <- 0
+					FINSI
+				TANTQUE (joueurs[j][PV] <= 0 ET i != j)
+
+				SI i = j ALORS
+					win <- i
+				SINON
+						
+					dmgRed <- joueurs[j][DEF] - dmg
+					pa <- pa - paArm
+
+					SI dmgRed > 0 ALORS
+
+						Alea(esq)
+						esq = esq * 100
+
+						SI joueurs[j][ESQ] > esq ALORS
+							joueurs[j][PV] <- joueurs[j][PV] - dmgRed
+						FINSI
+
+					FINSI
+					
+					SI joueurs[j][PV] < 0 ALORS
+						joueurs[j][PV] <- 0
+					FINSI
+
+				FINSI
+
+			FINTANTQUE
+
+		FINSI
+
+	FINTANTQUE
+
+FIN

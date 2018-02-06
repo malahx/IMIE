@@ -1,0 +1,1 @@
+Ecrire un algo qui demande à l'utilisateur un verbe du 1er groupe et qui le conjugue au présent de l'indicatif

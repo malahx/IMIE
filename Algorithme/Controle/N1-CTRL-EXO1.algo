@@ -1,0 +1,177 @@
+ALGORITHME Exo1
+CONSTANTE
+	ENTIER: X <- 20
+	ENTIER: Y <- 20
+	ENTIER: PLAYERS <- 2
+	ENTIER: AXES <- 2
+	ENTIER: P1 <- 0
+	ENTIER: P2 <- 1
+	ENTIER: MP <- 10
+	TABLEAU<ENTIER>[3]: terrains{1,3,5}
+
+VARIABLE
+	TABLEAU<ENTIER>[X][Y]: map
+	TABLEAU<ENTIER>[PLAYERS][AXES]: positions
+
+FONCTION ENTIER GenerateMap() 
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rand
+		ENTIER: len
+
+	DEBUT
+
+		len = Len(terrains)
+		POUR i DE 0 A X -1 PAS DE 1 FAIRE
+			POUR j DE 0 A Y -1 PAS DE 1 FAIRE
+				rand <- Rand() * (len -1) % len
+				map[i][j] <- terrains[rand]
+			FINPOUR
+		FINPOUR
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+FONCTION ENTIER GetAxe(ENTIER: axe)
+	DEBUT
+
+		SELON axe FAIRE
+			0: Retourne X
+			1: Retourne Y
+		FINSELON
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+FONCTION ENTIER GeneratePlayers()
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rand
+		ENTIER: axe
+
+	DEBUT
+
+		POUR i DE 0 A PLAYERS -1 PAS DE 1 FAIRE
+			POUR j DE 0 A AXES -1 PAS DE 1 FAIRE
+				axe <- GetAxe(j)
+				rand <- Rand() * (axe -1) % axe
+				positions[i][j] <- rand
+			FINPOUR
+		FINPOUR
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+FONCTION ENTIER GetEnemy(ENTIER: n) 
+	DEBUT
+
+		SELON n FAIRE
+			0: Retourne P2
+			1: Retourne P1
+		FINSELON
+
+		Retourne -1
+
+	FIN
+FINFONCTION
+
+FONCTION ENTIER OneCaseMvt(ENTIER: n)
+	DEBUT
+
+		SI (n > 0) ALORS
+			Retourne 1
+		SINON SI (n < 0) ALORS
+			Retourne -1
+		FINSI
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+FONCTION TABLEAU<ENTIER>[2] GetNextPos(TABLEAU<ENTIER>[2]: currentP, TABLEAU<ENTIER>[2]: enemyP)
+	VARIABLE
+		TABLEAU<ENTIER>[2]: nextPos
+
+	DEBUT
+
+		nextPos <- currentP
+
+		SI (currentP[0] != enemyP[0]) ALORS
+			nextPos[0] <- nextPos[0] + OneCaseMvt(currentP[0] - enemyP[0])
+
+		SINON SI (currentP[1] != enemyP[1])
+			nextPos[1] <- nextPos[1] + OneCaseMvt(currentP[1] - enemyP[1])
+
+		FINSI
+
+		Retourne nextPos
+
+	FIN
+FINFONCTION
+
+FONCTION BOOLEEN IsSamePos(TABLEAU<ENTIER>[2]: pos1, TABLEAU<ENTIER>[2]: pos2)
+	DEBUT
+
+		Retourne (pos1[0] = pos2[0] ET pos1[1] = pos2[1])
+
+	FIN
+FINFONCTION
+
+FONCTION ENTIER MovePlayers()
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: x
+		ENTIER: y
+		ENTIER: e
+		ENTIER: mp
+		ENTIER: terrain
+		TABLEAU<ENTIER>[2]: nextPos
+
+	DEBUT
+
+		TANTQUE (NON(IsSamePos(positions[P1], positions[P2]))) FAIRE
+			POUR i DE 0 A PLAYERS - 1 PAS DE 1 FAIRE
+
+				e <- GetEnemy(i)
+				mp <- MP
+
+				TANTQUE (mp > 0 ET NON(IsSamePos(positions[i], positions[e]))) FAIRE
+
+					nextPos <- GetNextPos(positions[i], positions[e])
+					x <- nextPos[0]
+					y <- nextPos[1]
+					terrain <- map[x][y]
+					mp <- mp - terrain
+
+					SI (mp >= 0) ALORS
+						positions[i][0] <- x
+						positions[i][1] <- y
+					FINSI
+
+				FINTANTQUE
+
+			FINPOUR
+		FINTANTQUE
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+DEBUT
+
+	GenerateMap()
+	GeneratePlayers()
+	MovePlayers()
+
+FIN

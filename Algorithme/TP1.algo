@@ -1,0 +1,9 @@
+ALGORITHME TP1
+VARIABLE
+	ENTIER: curseur <- 0
+DEBUT
+	curseur <- curseur +12
+	curseur <- curseur -3
+	curseur <- curseur +5
+	curseur <- curseur -6
+FIN

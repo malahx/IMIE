@@ -1,0 +1,138 @@
+ALGORITHME BatailleNaval
+CONSTANTE
+	ENTIER: X <- 24
+	ENTIER: Y <- 18
+	ENTIER: NB_JOUEURS <- 2
+	// Tableau de vaisseau [(id, longueur, nombre)]
+	TABLEAU<ENTIER>: VAISSEAU[(1,1,1),(2,3,2),(3,4,2),(4,6,1)]
+VARIABLE
+	ENTIER: iJoueur
+	TABLEAU<ENTIER>[NB_JOUEURS][X][Y]: carte
+
+// Peupler la position d'un vaisseau
+FONCTION BOOLEEN Peupler(TABLEAU<ENTIER>[4] position)
+	VARIABLE
+		ENTIER: _i
+		ENTIER: _x
+		ENTIER: _y
+		ENTIER: _longueur
+		ENTIER: _vertical
+		ENTIER: _id
+	DEBUT
+		_x <- _position[0]
+		_y <- _position[1]
+		_vertical <- _position[2]
+		_longueur <- _position[3]
+		POUR _i DE 0 A _longueur -1 PAS DE 1 FAIRE
+			SI _vertical = 0 ALORS
+				carte[iJoueur][_x + _i][_y] <- _id
+			SINON
+				carte[iJoueur][_x][_y + _i] <- _id
+			FINSI
+		FINPOUR
+		Retourne vrai
+	FIN
+FINFONCTION
+
+// Retourne si la position est libre
+FONCTION BOOLEEN EstLibre(TABLEAU<ENTIER>[4] position) 
+	VARIABLE
+		ENTIER: _i
+		ENTIER: _x
+		ENTIER: _y
+	DEBUT
+		_x <- position[0]
+		_y <- position[1]
+		POUR _i DE 0 A longueur -1 PAS DE 1 FAIRE
+			SI vertical = 0 ALORS
+				_x <- _x + _i
+			SINON
+				_y <- _y + _i
+			FINSI
+			SI carte[iJoueur][_x][_y] != 0 ALORS
+				Retourne faux
+			FINSI
+		FINPOUR
+		Retourne vrai
+	FIN
+FINFONCTION
+
+// Retourne la position d'un vaisseau (x, y, vertical, longueur)
+FONCTION TABLEAU<ENTIER>[4] Position(ENTIER longueur))
+	VARIABLE
+		ENTIER: _x
+		ENTIER: _y
+		ENTIER: _vertical
+		TABLEAU<ENTIER>[4]: _position
+	DEBUT
+		FAIRE
+			_vertical <- Rand() * 1 % 2
+			SI _vertical = 0 ALORS
+				_x <- Rand() * ((X -1) % X - longueur)
+				_y <- Rand() * (Y -1) % Y
+			SINON
+				_x <- Rand() * (X -1) % X
+				_y <- Rand() * ((Y -1) % Y - longueur)
+			FINSI
+			_position[0] <- _x
+			_position[1] <- _y
+			_position[2] <- _vertical
+			_position[3] <- longueur
+		TANTQUE (!EstLibre(_position))
+		Retourne _position
+	FIN
+FINFONCTION
+	
+// Génère la carte d'un joueur iJoueur
+FONCTION BOOLEEN Generer()
+	VARIABLE
+		ENTIER: _i
+		ENTIER: _j
+		ENTIER: _longueur
+		ENTIER: _id
+		TABLEAU<ENTIER>[4]: _position
+	DEBUT
+		// Boucle sur les vaisseaux
+		POUR _i DE 0 A len(VAISSEAU) -1 PAS DE 1 FAIRE
+
+			// Boucle sur le nombre de vaisseau du type _i
+			POUR _j DE 0 A VAISSEAU[_i][2] -1 PAS DE 1 FAIRE
+				_id <- VAISSEAU[_i][0]
+				_longueur <- VAISSEAU[_i][1]
+				_position <- Position(_longueur)
+				Peupler(_id, _position)
+			FINPOUR
+		FINPOUR
+
+		Retourne vrai
+	FIN
+FINFONCTION
+
+// Générer une carte vierge
+FONCTION BOOLEEN InitCarte()
+	VARIABLE
+		ENTIER: _i
+		ENTIER: _j
+	DEBUT
+
+		// Boucle sur X
+		POUR _i DE 0 A X -1 PAS DE 1 FAIRE
+
+			// Boucle sur Y
+			POUR _j DE 0 A Y -1 PAS DE 1 FAIRE
+				carte[iJoueur][_i][_j] <- 0
+			FINPOUR
+		FINPOUR
+
+		Retourne vrai
+	FIN
+FINFONCTION
+
+DEBUT
+	InitCarte()
+
+	// Boucle sur les joueurs
+	POUR iJoueur DE 0 A NB_JOUEURS -1 PAS DE 1 FAIRE
+		Generer()
+	FINPOUR
+FIN

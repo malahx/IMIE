@@ -1,0 +1,55 @@
+ALGORITHME Exo2
+VARIABLE
+	CHAINE: msg
+	CARACTERE: c
+	ENTIER: len
+	ENTIER: i
+	ENTIER: a
+	ENTIER: clef
+	TABLEAU<ENTIER>[1]: secret
+
+FONCTION ENTIER Affichage()
+	VARIABLE
+		ENTIER: ii
+
+	DEBUT
+
+		Ecrire("Affichage du message chiffré : ")
+		Ecrire("[")
+
+		POUR ii DE 0 A len -1 PAS DE 1 FAIRE
+
+			Ecrire(secret[ii])
+
+			SI (ii < len -1) ALORS 
+				Ecrire(",")
+			FINSI
+
+		FINPOUR
+
+		Ecrire("]")
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+DEBUT
+
+	Ecrire("Saisir le message à chiffrer")
+	Lire(msg)
+
+	Ecrire("Saisir la clef de chiffrement")
+	Lire(clef)
+
+	len <- Len(msg)
+	Redim(secret, len)
+
+	POUR i DE 0 A len -1 PAS DE 1 FAIRE
+		c <- Mid(msg, i, 1)
+		a <- c
+		secret[i] <- a^2 - a + clef
+	FINPOUR
+
+	Affichage()
+
+FIN

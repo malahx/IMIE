@@ -1,0 +1,32 @@
+ALGORITHME TP4
+VARIABLE
+	ENTIER: chiffreUn
+	ENTIER: chiffreDeux
+	ENTIER: resultat
+DEBUT
+	
+	Lire(chiffreUn)
+	Lire(chiffreDeux)
+
+	SI chiffreUn = chiffreDeux ALORS
+		resultat <- chiffreUn + chiffreDeux
+		Ecrire(resultat)
+	FINSI
+
+	SI chiffreUn < 0 ET chiffreDeux > 0 ALORS
+		resultat <- chiffreUn * chiffreDeux
+		Ecrire(resultat)
+	FINSI
+
+	SI (chiffreUn > 0 ET chiffreDeux > 0) OU (chiffreUn < 0 ET chiffreDeux < 0) ALORS
+		SI chiffreUn^2 > 10^2 OU chiffreDeux^2 > 10^2 ALORS
+			resultat <- chiffreUn DIV chiffreDeux
+			Ecrire(resultat)
+		FINSI
+	FINSI
+
+	SI resultat = null ALORS
+		Ecrire("Aucun test valable")
+	FINSI
+
+FIN

@@ -1,0 +1,25 @@
+ALGORITHME TP5
+VARIABLE
+	ENTIER: chiffreUn
+	ENTIER: chiffreDeux
+	ENTIER: resultat
+DEBUT
+	
+	Lire(chiffreUn)
+	Lire(chiffreDeux)
+
+	SI chiffreUn = chiffreDeux ALORS
+		Ecrire(chiffreUn + chiffreDeux)
+
+	SINON SI chiffreUn < 0 ET chiffreDeux > 0 ALORS
+		Ecrire(chiffreUn * chiffreDeux)
+
+	SINON SI ((chiffreUn > 0 ET chiffreDeux > 0) OU (chiffreUn < 0 ET chiffreDeux < 0) ET
+		(chiffreUn > 10 OU chiffreDeux > 10 OU chiffreUn < -10 OU chiffreDeux < -10) ALORS
+		Ecrire(chiffreUn DIV chiffreDeux)
+
+	SINON
+		Ecrire("Aucun test valable")
+	FINSI
+
+FIN

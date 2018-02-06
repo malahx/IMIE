@@ -1,0 +1,19 @@
+ALGORITHME TP2
+VARIABLE
+	ENTIER: panier_aladin
+	ENTIER: panier_jasmine
+	ENTIER: panier_new
+DEBUT
+
+	Ecrire("Combien de pommes possede Aladin ?")
+	Lire(panier_aladin)
+
+	Ecrire("Combien de pommes possede Jasmine ?")
+	Lire(panier_jasmine)
+
+	panier_new <- panier_aladin + panier_jasmine
+	panier_aladin <- 0
+	panier_jasmine <- 0
+	Ecrire(panier_new)
+
+FIN

@@ -1,0 +1,55 @@
+ALGORITHME Exo3
+CONSTANTE
+	ENTIER: DEF <- 10
+	
+VARIABLE
+	ENTIER: a
+	ENTIER: b
+
+FONCTION ENTIER TableDe(ENTIER: m, ENTIER: n)
+	VARIABLE
+		ENTIER: i
+
+	DEBUT
+
+		Ecrire("Table de " & m & " pour les " & n & " premiers chiffres")
+		POUR i DE 0 A n -1 PAS DE 1 FAIRE
+			Ecrire(m * i)
+		FINPOUR
+		
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+
+FONCTION ENTIER Default()
+	VARIABLE
+		ENTIER: i
+
+	DEBUT
+
+		POUR i DE 0 A DEF PAS DE 1 FAIRE
+			TableDe(i, DEF)
+		FINPOUR
+
+		Retourne 0
+
+	FIN
+FINFONCTION
+
+DEBUT
+
+	Default()
+
+	Ecrire("Saisir la table")
+	Lire(a)
+
+	FAIRE
+		Ecrire("Saisir le nombre de chiffre à calculer à partir de Zéro")
+		Lire(b)
+	TANTQUE (b <= 0)
+
+	TableDe(a, b)
+
+FIN

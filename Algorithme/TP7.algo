@@ -1,0 +1,67 @@
+ALGORITHME TP7
+VARIABLE
+	ENTIER: selection
+	ENTIER: bac
+	ENTIER: concasseur
+	ENTIER: quantite
+	ENTIER: verser
+	BOOLEEN: marche <- vrai
+DEBUT
+
+	TANTQUE marche FAIRE
+
+		Lire(marche)
+
+		FAIRE
+			Ecrire("Sélectionnez le type de café souhaité (1 à 8)")
+			Lire(selection)
+		TANTQUE selection < 1 OU selection > 8
+
+		SELON selection FAIRE
+			1: 
+				bac <- 1
+				quantite <- 10
+			2: 
+				bac <- 1
+				quantite <- 25
+			3: 
+				bac <- 1
+				quantite <- 10
+			4: 
+				bac <- 1
+				quantite <- 10
+			5: 
+				bac <- 2
+				quantite <- 25
+			6: 
+				bac <- 2
+				quantite <- 10
+			7: 
+				bac <- 3
+				quantite <- 25
+			8: 
+				bac <- 4
+				quantite <- 12
+		FINSELON 
+
+		SELON bac FAIRE
+			1: concasseur <- 1
+			2: concasseur <- 1
+			3: concasseur <- 2
+		FINSELON
+
+		Ecrire("Utiliser le bac N°")
+		Ecrire(bac)
+		
+		SI concasseur != null ALORS
+			Ecrire("Démarrer le concasseur N°")
+			Ecrire(concasseur)
+		FINSI
+
+		POUR verser DE 1 A quantite PAS DE 1 FAIRE
+			Ecrire("Verser une unité de grain moulu")
+		FINPOUR
+
+	FINTANTQUE
+
+FIN

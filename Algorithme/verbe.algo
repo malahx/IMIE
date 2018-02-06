@@ -1,0 +1,49 @@
+ALGORITHME Verbe
+VARIABLE
+	ENTIER: i
+	ENTIER: len
+	CHAINE: verbe
+	TABLEAU<CHAINE>: conj
+		[
+			(
+				"je ",
+				"e"
+			),
+			(
+				"tu ",
+				"es"
+			),
+			(
+				"il ",
+				"e"
+			),
+			(
+				"nous ",
+				"ons"
+			),
+			(
+				"vous ",
+				"ez"
+			),
+			(
+				"ils ",
+				"ent"
+			)
+		]
+DEBUT
+	FAIRE
+		Ecrire("Saisir un verbe du premier groupe")
+		Lire(verbe)
+	TANTQUE (Left(verbe, 2) != "re" ET
+			 Left(verbe, 2) != "RE" ET 
+			 Left(verbe, 2) != "Re" ET 
+			 Left(verbe, 2) != "rE" ET
+			 Left(verbe, 1) != "r" ET
+			 Left(verbe, 1) != "R")
+	
+	len <- len(conj)
+	POUR i DE 0 à len - 1 PAS DE 1 FAIRE
+		Ecrire(conj[i][0] & Right(verbe, len(verbe) -2) & conj[i][1])
+	FINPOUR
+
+FIN

@@ -1,0 +1,11 @@
+ALGORITHME TP2
+VARIABLE
+	ENTIER: panier_aladin <- 5
+	ENTIER: panier_jasmine <- 7
+	ENTIER: panier_new
+DEBUT
+	panier_new <- panier_aladin + panier_jasmine
+	panier_aladin <- 0
+	panier_jasmine <- 0
+	Ecrire(panier_new)
+FIN

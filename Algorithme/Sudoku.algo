@@ -1,0 +1,225 @@
+ALGORITHME SudokuResolv
+CONSTANTE
+VARIABLE
+	TABLEAU<ENTIER>[9][9]: sudoku
+
+FONCTION BOOLEEN VerifLigne(ENTIER: n, ENTIER: ligne)
+	VARIABLE
+		ENTIER: i
+	DEBUT
+		POUR i DE 0 à 8 PAS DE 1 FAIRE
+			SI sudoku[ligne][i] = n ALORS
+				Retourne vrai
+			FINSI
+		FINPOUR
+		Retourne faux
+	FIN
+FINFONCTION
+
+FONCTION BOOLEEN VerifCol(ENTIER: n, ENTIER: col)
+	VARIABLE
+		ENTIER: i
+	DEBUT
+		POUR i DE 0 à 8 PAS DE 1 FAIRE
+			SI sudoku[i][col] = n ALORS
+				Retourne vrai
+			FINSI
+		FINPOUR
+		Retourne faux
+	FIN
+FINFONCTION
+
+FONCTION BOOLEEN VerifEns(ENTIER: n, ENTIER: x, ENTIER: y)
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+	DEBUT
+		POUR i DE 0 à 2 PAS DE 1 FAIRE
+			POUR j DE 0 à 2 PAS DE 1 FAIRE
+				SI sudoku[i * 3 + x][j * 3 + y] = n ALORS
+					Retourne vrai
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne faux
+	FIN
+FINFONCTION
+
+FUNCTION ENTIER CountAllZero()
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rep
+	DEBUT
+		POUR i DE 0 à 8 PAS DE 1 FAIRE
+			POUR j DE 0 à 8 PAS DE 1 FAIRE
+				SI sudoku[i][j] = n ALORS
+					rep <- rep + 1
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne rep
+	FIN
+FINFONCTION
+
+FUNCTION ENTIER CountZero(ENTIER: x, ENTIER: y)
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rep
+	DEBUT
+		POUR i DE 0 à 2 PAS DE 1 FAIRE
+			POUR j DE 0 à 2 PAS DE 1 FAIRE
+				SI sudoku[i * 3 + x][j * 3 + y] = n ALORS
+					rep <- rep + 1
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne rep
+	FIN
+FINFONCTION
+
+FUNCTION TABLEAU<ENTIER>[2] GetAPos(ENTIER: x, ENTIER: y, count)
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rand
+		ENTIER: count <- 0
+		TABLEAU<ENTIER>[2]: rep{-1, -1}
+	DEBUT
+		rand <- Rand() * (count -1) % count
+		POUR i DE 0 à 2 PAS DE 1 FAIRE
+			POUR j DE 0 à 2 PAS DE 1 FAIRE
+				SI sudoku[i * 3 + x][j * 3 + y] = 0 ALORS
+					count <- count + 1
+					SI rand == count ALORS
+						rep[0] <- i
+						rep[1] <- j
+					FINSI
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne rep
+	FIN
+FINFONCTION
+
+FONCTION ENTIER GetIndice(ENTIER: pos, ENTIER: i)
+	VARIABLE
+	DEBUT
+		SI i = 0 ALORS
+			SELON pos FAIRE
+				0: Retourne 1
+				1: Retourne 1
+				2: Retourne -1
+			FINSELON
+		SINON
+			SELON pos FAIRE
+				0: Retourne 2
+				1: Retourne -1
+				2: Retourne -2
+			FINSELON
+		FINSI
+		Retourne 0
+	FIN
+FINFONCTION
+
+FUNCTION ENTIER TestEns(ENTIER: n, ENTIER: x, ENTIER: y, TABLEAU<ENTIER>[2] pos)
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: rand
+	DEBUT
+		SI VerifLigne(n, x + pos[0]) ALORS 
+			Retourne 0
+		FINSI
+		
+		SI VerifCol(n, y + pos[1]) ALORS 
+			Retourne 0
+		FINSI
+
+		POUR i DE 0 à 1 PAS DE 1 FAIRE
+			SI NON(VerifLigne(n, y + GetIndice(pos[1]))) ALORS
+				Retourne 0
+			FINSI
+		FINPOUR
+
+		POUR i DE 0 à 1 PAS DE 1 FAIRE
+			SI NON(VerifCol(n, x + GetIndice(pos[0]))) ALORS
+				Retourne 0
+			FINSI
+		FINPOUR
+
+		sudoku[x + pos[0]][y + pos[1]] <- n
+		Retourne 0
+	FIN
+FINFONCTION
+
+FONCTION ENTIER TestIndex(ENTIER: n)
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+		ENTIER: count
+		TABLEAU<ENTIER>[9][2]: coordonnee
+	DEBUT
+		POUR i DE 0 à 2 PAS DE 1 FAIRE
+			POUR j DE 0 à 2 PAS DE 1 FAIRE
+				count <- CountZero(i, j)
+				SI NON(VerifEns(n, i, j)) ET count > 0 ALORS
+					TestEns(n, i, j, GetAPos(i, j, count))
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne 0
+	FIN
+FINFONCTION
+
+FONCTION ENTIER Resolv()
+	VARIABLE
+		ENTIER: i
+	DEBUT
+		FAIRE
+			POUR i DE 1 à 9 PAS DE 1 FAIRE
+				TestIndex(i)
+			FINPOUR
+		TANTQUE CountAllZero() > 0 
+		Retourne 0
+	FIN
+FINFONCTION
+
+FONCTION ENTIER InitData()
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+	DEBUT
+		POUR i DE 0 à 8 PAS DE 1 FAIRE
+			POUR j DE 0 à 8 PAS DE 1 FAIRE
+				SI sudoku[i][j] = null ALORS
+					sudoku[i][j] <- 0
+				FINSI
+			FINPOUR
+		FINPOUR
+		Retourne 0
+	FIN
+FINFONCTION
+
+FONCTION ENTIER Affiche()
+	VARIABLE
+		ENTIER: i
+		ENTIER: j
+	DEBUT
+		POUR i DE 0 à 8 PAS DE 1 FAIRE
+			Ecrire("Ligne " & i)
+			POUR j DE 0 à 8 PAS DE 1 FAIRE
+				Ecrire(sudoku[i][j])
+			FINPOUR
+		FINPOUR
+		Retourne 0
+	FIN
+FINFONCTION
+
+DEBUT
+	sudoku <- InitSudo()
+	InitData()
+	Resolv()
+	Affiche()
+FIN

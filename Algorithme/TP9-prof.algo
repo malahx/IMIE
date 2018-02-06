@@ -1,0 +1,157 @@
+40min
+
+ALGORITHME TP9
+CONSTANTE
+	ENTIER : JOUEUR1 <- 0
+	ENTIER : JOUEUR2 <- 5
+	ENTIER : JOUEUR3 <- 10
+	ENTIER : DEGAT <- 0
+	ENTIER : PAU <- 1
+	ENTIER : ARMURE <- 2
+	ENTIER : PV <- 3
+	ENTIER : PA <- 4
+	ENTIER : EQUIPE <- 1
+	ENTIER : OUT <- -1
+	ENTIER : NBJOUEUR <- 3
+	ENTIER : NBATTRIBUT <- 5
+
+VARIABLE
+	TABLEAU<ENTIER>[NBATTRIBUT*NBJOUEUR]:joueurs
+	ENTIER : ii
+	ENTIER : jj
+	ENTIER : choix
+	ENTIER : adversaire
+	ENTIER : paCourant
+	BOOLEEN : process <- vrai
+
+DEBUT
+	jj <- 0
+	POUR ii DE 0 A ((NBATTRIBUT*NBJOUEUR) - 1) PAS DE NBATTRIBUT FAIRE
+		jj <- jj + 1
+
+		FAIRE
+			Ecrire("Choix arme perso " & jj)
+			Ecrire("1 concasseur")
+			Ecrire("2 pelle")
+			Ecrire("3 gatling")
+			Ecrire("4 batte de cricket")
+			Ecrire("5 blaster")
+
+			Lire(choix)
+
+		TANTQUE(choix < 1 OU choix > 5)
+		SELON choix FAIRE
+			1 :
+				joueurs[ii+DEGAT] <- 3
+				joueurs[ii+PAU] <- 4
+			2 :
+				joueurs[ii+DEGAT] <- 2
+				joueurs[ii+PAU] <- 1
+			3 :
+				joueurs[ii+DEGAT] <- 10
+				joueurs[ii+PAU] <- 6
+			4 :
+				joueurs[ii+DEGAT] <- 1
+				joueurs[ii+PAU] <- 1
+			5 :
+				joueurs[ii+DEGAT] <- 6
+				joueurs[ii+PAU] <- 3
+		FINSELON
+		choix <- OUT
+
+		FAIRE
+			Ecrire("Choix armure perso " & jj)
+			Ecrire("0 aucune armue")
+			Ecrire("1 gilet bleu")
+			Ecrire("2 armure de cuir")
+			Ecrire("3 armure de plaque")
+
+			Lire(choix)
+
+		TANTQUE(choix < 0 OU choix > 3)
+		SELON choix FAIRE
+			0 :
+				joueurs[ii+ARMURE] <- 0
+			1 :
+				joueurs[ii+ARMURE] <- 1
+			2 :
+				joueurs[ii+ARMURE] <- 2
+			3 :
+				joueurs[ii+ARMURE] <- 4
+		FINSELON
+		choix <- OUT
+
+		FAIRE
+			Ecrire("Choix PV perso " & jj)
+
+			Lire(choix)
+
+		TANTQUE(choix < 0 OU choix > 20)
+		joueurs[ii+PV] <- choix
+		choix <- OUT
+
+		FAIRE
+			Ecrire("Choix PA perso " & jj)
+
+			Lire(choix)
+
+		TANTQUE(choix < 0 OU choix > 20)
+		joueurs[ii+PA] <- choix
+		choix <- OUT
+	FINPOUR
+
+	TANTQUE (process) FAIRE
+
+		POUR ii DE 0 A ((NBATTRIBUT*NBJOUEUR) - 1) PAS DE NBATTRIBUT FAIRE
+			SI joueurs[ii+PV] > 0 ALORS
+				adversaire <- OUT
+
+				jj <- ii
+				FAIRE
+					jj <- jj + NBATTRIBUT
+					SI(jj > (NBATTRIBUT*NBJOUEUR - 1)) ALORS
+						jj <- 0
+					FINSI
+				TANTQUE (joueurs[jj+PV] <= 0 ET jj != ii)
+
+				SI (jj != ii) ALORS
+					adversaire <- jj
+				FINSI
+
+				SI (adversaire != OUT) ALORS
+					paCourant <- joueurs[ii+PA]
+					paCourant <- paCourant - 1
+					TANTQUE (((paCourant - joueurs[ii+PAU]) >= 0) ET process) FAIRE
+						SI (joueurs[adversaire+PV] > 0) ALORS
+							SI (joueurs[adversaire+ARMURE] - joueurs[ii+DEGAT]) < 0  ALORS
+								joueurs[adversaire+PV] <- joueurs[adversaire+ARMURE] - joueurs[ii+DEGAT]
+							FINSI
+							paCourant <- paCourant - joueurs[ii+PAU]
+						SINON
+							adversaire <- OUT
+
+							jj <- ii
+							FAIRE
+								jj <- jj + NBATTRIBUT
+								SI(jj > (NBATTRIBUT*NBJOUEUR - 1)) ALORS
+									jj <- 0
+								FINSI
+							TANTQUE (joueurs[jj+PV] <= 0 ET jj != ii)
+
+							SI (jj != ii) ALORS
+								adversaire <- jj
+							FINSI
+
+							SI (adversaire = OUT) ALORS
+								process <- faux
+							FINSI
+						FINSI
+					FINTANTQUE
+				SINON
+					Ecrire("Fini")
+					process <- faux
+				FINSI
+			FINSI
+		FINPOUR
+	FINTANTQUE
+FIN

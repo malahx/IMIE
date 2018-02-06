@@ -1,0 +1,69 @@
+ALGORITHME Exo2
+// une chaine de 1 == 1 caractère ?
+CONSTANTE
+VARIABLE
+	CHAINE: saisie
+	ENTIER: cle
+	ENTIER: ascii
+	ENTIER: i
+	ENTIER: len
+	TABLEAU<ENTIER>[1]: resultat
+DEBUT
+
+	Ecrire("Saisir le texte à chiffrer")
+	Lire(saisie)
+
+	Ecrire("Saisir la clé")
+	Lire(cle)
+
+	len <- len(saisie)
+	Redim(resultat, len)
+	Ecrire("[")
+	POUR i DE 0 à len -1 PAS DE 1 FAIRE
+		ascii <- Mid(saisie, i, 1)
+		resultat[i] <- ascii^2 - ascii + cle
+		Ecrire(resultat[i])
+		SI i != len -1 ALORS
+			 Ecrire(",")
+		FINSI
+	FINPOUR
+	Ecrire("]")
+FIN
+
+// une chaine de 1 != 1 caractère
+CONSTANTE
+VARIABLE
+	TABLEAU<CARACTERE>[1]: saisie
+	ENTIER: cle
+	ENTIER: ascii
+	ENTIER: i
+	ENTIER: len
+	TABLEAU<ENTIER>[1]: resultat
+DEBUT
+
+	Ecrire("Saisir le texte à chiffrer")
+	i <- 0
+	FAIRE
+		i <- i + 1
+		Redim(saisie, i)
+		Lire(saisie[i - 1])
+	TANTQUE (saisie[i - 1] != null)
+	Redim(saisie, i - 1)
+
+	Ecrire("Saisir la clé")
+	Lire(cle)
+
+	Ecrire("[")
+	len <- len(saisie)
+	Redim(resultat, len)
+	POUR i DE 0 à len -1 PAS DE 1 FAIRE
+		ascii <- saisie[i]
+		resultat[i] <- ascii^2 - ascii + cle
+		Ecrire(resultat[i])
+		SI i != len -1 ALORS
+			 Ecrire(",")
+		FINSI
+	FINPOUR
+	Ecrire("]")
+
+FIN

@@ -1,0 +1,19 @@
+Réaliser un algorithme permettant de résoudre un sudoku de niveau moyen (sans aucune hypothèse)
+Les règles du sudoku sont les suivante :
+- le tableau est à deux dimension de taille 9 par 9
+- il est composé de sous élément de taille 3 par 3
+- les sous éléments ne peuvent contenir qu'une fois les chiffres de 1 à 9
+- les lignes horizontales ou verticales ne peuvent contenir qu'une fois les chiffres de 1 à 9
+- la fonction système suivante est disponible :
+	- FONCTION TABLEAU<ENTIER>[9][9] InitSudo()
+	- Elle retourne des valeurs dans le tableau permettant de résoudre le sudoku sans hypothèse
+
+
+
+Sudoku
+- 9 grilles divisées par 9
+- nombre de 1 à 9
+- 1 nombre de 1 à 9 par ligne et par division de grille
+- pas d'hypothèse
+- fonction déjà disponible:
+FONCTION TABLEAU<ENTIER>[9][9] InitSudo()

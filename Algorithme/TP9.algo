@@ -1,0 +1,124 @@
+ALGORITHME TP9
+CONSTANTE
+	ENTIER: NB_JOUEURS 	<- 3
+	ENTIER: NB_PARAM 	<- 5
+	ENTIER: DMG 		<- 0
+	ENTIER: ARM_PA 		<- 1
+	ENTIER: DEF 		<- 2
+	ENTIER: PV 			<- 3
+	ENTIER: PA 			<- 4
+VARIABLE
+	ENTIER: i
+	ENTIER: j
+	ENTIER: n <- NB_JOUEURS * NB_PARAM
+	ENTIER: saisie
+	ENTIER: dmg
+	ENTIER: dmgRed
+	ENTIER: paArm
+	ENTIER: pa
+	ENTIER: win
+	TABLEAU<ENTIER>[NB_JOUEURS * NB_PARAM]: joueurs
+DEBUT
+	
+
+	
+	Ecrire("Nouveau tour")
+	Ecrire("Saisie")
+	POUR i DE 0 A n -1 PAS DE NB_PARAM FAIRE
+		Ecrire("Joueur N°" & 1 + i/NB_PARAM)
+
+		FAIRE
+			Ecrire("	Sélectionnez une arme (1 à 5)")
+			Lire(saisie)
+		TANTQUE saisie < 1 OU saisie > 5
+		SELON saisie FAIRE
+			1: 
+				Ecrire("concasseur")
+				joueurs[i+DMG] 		<- 3
+				joueurs[i+ARM_PA] 	<- 4
+			2: 
+				Ecrire("pelle")
+				joueurs[i+DMG] 		<- 2
+				joueurs[i+ARM_PA] 	<- 1
+			3: 
+				Ecrire("gatling")
+				joueurs[i+DMG] 		<- 10
+				joueurs[i+ARM_PA] 	<- 6
+			4: 
+				Ecrire("batte de cricket")
+				joueurs[i+DMG] 		<- 1
+				joueurs[i+ARM_PA] 	<- 1
+			5: 
+				Ecrire("blaster")
+				joueurs[i+DMG] 		<- 6
+				joueurs[i+ARM_PA] 	<- 3
+		FINSELON
+
+		FAIRE
+			Ecrire("	Sélectionnez une armure (1 à 3)")
+			Lire(saisie)
+		TANTQUE saisie < 1 OU saisie > 3
+		SELON saisie FAIRE
+			1: joueurs[i+DEF] <- 1
+			2: joueurs[i+DEF] <- 2
+			3: joueurs[i+DEF] <- 4
+		FINSELON
+
+		Ecrire("	Sélectionnez les points de vie")
+		Lire(joueurs[i+PV])
+
+		Ecrire("	Sélectionnez les points d'actions")
+		Lire(joueurs[i+PA])
+	FINPOUR
+
+	Ecrire("Attaque")
+
+	i <- 0
+
+	TANTQUE win = null FAIRE //bug si tout le monde est mort ;)
+
+		i <- i + NB_PARAM
+		SI i > n -1 ALORS
+			i <- 0
+		FINSI
+
+		SI joueurs[i+PV] > 0 ALORS
+
+			dmg 		<- joueurs[i+DMG]
+			paArm 		<- joueurs[i+ARM_PA]
+			pa 			<- joueurs[i+PA] -1
+
+			TANTQUE pa > paArm ET win = null FAIRE
+
+				j <- i
+
+				FAIRE
+					j <- j + NB_PARAM
+					SI j > n -1 ALORS
+						j <- 0
+					FINSI
+				TANTQUE (joueurs[j+PV] <= 0 ET i != j)
+
+				SI i = j ALORS
+					win <- i
+				SINON
+						
+					dmgRed <- joueurs[j+DEF] - dmg
+					pa <- pa - paArm
+					SI dmgRed > 0 ALORS
+						joueurs[j+PV] <- joueurs[j+PV] - dmgRed
+					FINSI
+					
+					SI joueurs[j+PV] < 0 ALORS
+						joueurs[j+PV] <- 0
+					FINSI
+
+				FINSI
+
+			FINTANTQUE
+
+		FINSI
+
+	FINTANTQUE
+
+FIN

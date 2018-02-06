@@ -1,0 +1,17 @@
+ALGORITHME TP6
+VARIABLE
+	ENTIER: cuisson
+DEBUT
+	
+	Lire(cuisson)
+
+	SELON cuisson FAIRE
+		1: Ecrire("Tu laisses cuire")
+		2: Ecrire("Tu laisses cuire")
+		3: Ecrire("Tu laisses cuire")
+		4: Ecrire("Tu es content")
+		5: Ecrire("Tu laisses cuire et tu es déçu")
+		SINON: Ecrire("Le feu était éteint ...")
+	FINSELON
+
+FIN
