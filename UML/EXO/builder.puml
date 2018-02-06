@@ -1,0 +1,52 @@
+@startuml
+
+package model {
+    Meal --> Item
+    Burger --|> Item
+    ColdDrink --|> Item
+    Normal --|> Burger
+    Vegan --|> Burger
+    Pepsi --|> ColdDrink
+    Coke --|> ColdDrink
+    Item --> Packaging
+    Bottle --|> Packaging
+    Box --|> Packaging
+    ColdDrink ..> Bottle
+    Burger ..> Box
+    class Meal {
+        -itemList: Item[*]
+        +getTotalPrice(): double[1]
+        +getDetailPrice(): String[1]
+    }
+    abstract class Item {
+        -name: String[1]
+        -price: double[1]
+        -packaging: Packaging[1]
+    }
+    abstract class ColdDrink
+    abstract class Burger
+    abstract class Packaging {
+        -name: String[1]
+    }
+}
+
+package builder {
+    Builder ()-- MealBuilder
+    Builder ..> Item
+
+    MealBuilder ..> Item
+    MealBuilder --> Item
+    MealBuilder ..> Meal
+    interface Builder<T> {
+        +addItem(item: Item[1]): Builder[1]
+        +build(): T[1]
+    }
+    hide Builder
+    class MealBuilder {
+        -itemList: Item[*]
+        +addItem(item: Item[1]): Builder[1]
+        +build(): Meal[1]
+    }
+
+}
+@enduml

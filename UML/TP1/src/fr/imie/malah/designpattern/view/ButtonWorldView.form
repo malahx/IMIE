@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="fr.imie.malah.designpattern.view.ButtonWorldView">
+  <grid id="27dc6" binding="panel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="ec6df" class="javax.swing.JButton" binding="btnExit">
+        <constraints/>
+        <properties>
+          <text value="Exit"/>
+        </properties>
+      </component>
+      <component id="a5885" class="javax.swing.JButton" binding="btnHelloWorld">
+        <constraints/>
+        <properties>
+          <text value="HelloWorld"/>
+        </properties>
+      </component>
+      <component id="47c57" class="javax.swing.JButton" binding="btnEmptyWorld">
+        <constraints/>
+        <properties>
+          <text value="EmptyWorld"/>
+        </properties>
+      </component>
+      <component id="ef756" class="javax.swing.JButton" binding="btnNext">
+        <constraints/>
+        <properties>
+          <text value="Next"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

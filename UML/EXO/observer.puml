@@ -1,0 +1,32 @@
+@startuml
+
+Data --|> Subject
+BinObserver --|> Observer
+OctalObserver --|> Observer
+HexaObserver --|> Observer
+Subject --> "-observers *" Observer
+
+abstract class Subject {
+    +addListener(observer: Observer[1])
+    +update()
+}
+
+abstract class Observer<T> {
+    {abstract}+update(subject: T[1])
+}
+
+class Data {
+    -entier: int[1]
+    +setEntier()
+}
+class BinObserver <<Data>> {
+    +update(data: Data[1])
+}
+class OctalObserver <<Data>> {
+    +update(data: Data[1])
+}
+class HexaObserver <<Data>> {
+    +update(data: Data[1])
+}
+
+@enduml

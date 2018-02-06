@@ -1,0 +1,83 @@
+@startuml
+
+package model {
+
+    Item <|-- Color
+    Item <|-- Shape
+    Color <|-- Red
+    Color <|-- Green
+    Color <|-- Blue
+    Shape <|-- Circle
+    Shape <|-- Rectangle
+    Shape <|-- Square
+
+    abstract class Item {
+        -name
+        {abstract} +action()
+    }
+    abstract class Color {
+        +action()
+        -fill()
+    }
+    class Red {
+    }
+    class Green {
+    }
+    class Blue {
+    }
+    abstract class Shape {
+        +action()
+        -draw()
+    }
+    class Circle {
+    }
+    class Rectangle {
+    }
+    class Square {
+    }
+}
+
+package factory {
+
+    AbstractFactory ..> FactoryEnum
+    AbstractFactory <|-- FactoryColor
+    AbstractFactory <|-- FactoryShape
+    AbstractFactory ..> Item
+    FactoryColor ..> Item
+    FactoryShape ..> Item
+    FactoryColor ..> SelectColor
+    FactoryShape ..> SelectShape
+
+    abstract class AbstractFactory<T> {
+        {abstract}  +get(select: T[1]): Item[1]
+        {static}    +getFactory(factoryEnum: FactoryEnum[1]): AbstractFactory[1]
+    }
+    class FactoryColor <<SelectColor>> {
+        +get(selectColor: SelectColor[1]): Item[1]
+    }
+    class FactoryShape <<SelectShape>> {
+        +get(selectShape: SelectShape[1]): Item[1]
+    }
+    enum FactoryEnum {
+        COLOR
+        SHAPE
+    }
+    enum SelectColor {
+        Red,
+        Green,
+        Blue
+    }
+    enum SelectShape {
+        Circle,
+        Rectangle,
+        Square
+    }
+}
+App ..> AbstractFactory
+App ..> FactoryEnum
+App ..> Item
+class App {
+    {static} +main()
+}
+
+@enduml

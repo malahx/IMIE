@@ -1,0 +1,38 @@
+CDI Exo 1
+
+UML+Java
+
+Créer des couleurs ou des chapes
+Entity f(action) f(sysout)
+Color							Shape
+Factory Color					Factory Shape
+AbstractFactory
+
+3 différentes couleurs et 3 différentes shape
+un Shape se draw()
+une color se fill()
+
+
+CDI Exo 2
+
+UML+Java
+
+Créer des menu
+Meal --> "*" Item
+Burger --|> Item
+ColdDrink --|> Item
+Normaux --|> Burger
+Vegan --|> Burger
+Pepsi --|> ColdDrink
+Coke --|> ColdDrink
+Meal : prix / détail du prix
+
+CDI Exo 3
+
+UML
+
+Observer une classe possédant un entier
+lors de la modification de l'entier les observers attaché au sujet afficheront dans la console la valeur binaire de l'entier et ou
+la valeur octal de l'entier et ou la valeur hexadécimal de l'entier
+
+(3 types d'observers)

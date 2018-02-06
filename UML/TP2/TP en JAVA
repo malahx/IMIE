@@ -1,0 +1,22 @@
+TP en JAVA
+Modélisation UML -> générer le code java
+
+Sujet
+Prise de commande à Macdo
+Menu
+* Maxi Best Of
+* BestOf
+* Happy Meal
+
+Menu est composé de
+* Sandwich
+* Accompagnement (petit/moyen/grand)
+* Boisson (20/30/50 cl)
+
+AbstractFactory ou Builder pour générer les menus
+
+Composite pour la commande
+
+Gestion du prix / commande / TTC / HTC
+
+Console
