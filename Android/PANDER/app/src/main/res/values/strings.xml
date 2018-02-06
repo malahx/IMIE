@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PANDER</string>
+    <string name="lbl_login">Login</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_register">Register</string>
+    <string name="lbl_connect">Connect</string>
+    <string name="lbl_forgot_password">Forgot password</string>
+    <string name="lbl_call">Call</string>
+    <string name="lbl_contacts">Contacts</string>
+    <string name="wrong_login">Wrong login</string>
+    <array name="colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Grey</item>
+        <item>Blue</item>
+    </array>
+</resources>

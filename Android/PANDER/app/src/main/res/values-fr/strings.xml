@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_login">Identifiant</string>
+    <string name="lbl_password">Mot de passe</string>
+    <string name="lbl_register">S\'enregistrer</string>
+    <string name="lbl_connect">Se connecter</string>
+    <string name="lbl_forgot_password">Mot de passe oublié</string>
+    <string name="lbl_call">Appeler</string>
+    <string name="lbl_contacts">Contacts</string>
+    <string name="wrong_login">Erreur de connexion</string>
+</resources>
