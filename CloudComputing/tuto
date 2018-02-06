@@ -1,0 +1,7 @@
+1) se connecter sur https://console.aws.amazon.com
+2) créer une paire de clé et la mettre dans .ssh changer ses droits pour de la lecture seul chmod 0400 cle
+3) récupérer/créer un groupe de sécurité
+4) modifier config.json et les js ...
+5) lancer node create_instance.js
+6) se connecter en ssh : ssh -i /home/malah/.ssh/nom_de_cle.pem ubuntu@ip_de_la_machine
+BOOM
