@@ -1,5 +1,7 @@
 Makefile
 cmake_install.cmake
+mastermind
 *.o
+*.so
 CMakeCache.txt
 CMakeFiles

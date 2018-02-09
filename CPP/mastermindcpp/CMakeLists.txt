@@ -4,7 +4,12 @@ project(Mastermind)
 
 set(CPP 
 	main.cpp
-	Chain.cpp
-	RandMaster.cpp)
+	Chain.cpp)
 
-add_executable(mastermind.o ${CPP})
+add_library(RandMaster SHARED RandMaster.cpp)
+
+set(APP mastermind)
+
+add_executable(${APP} ${CPP})
+
+target_link_libraries(${APP} RandMaster)

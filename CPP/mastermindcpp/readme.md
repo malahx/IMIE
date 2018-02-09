@@ -1,4 +1,4 @@
 #MastermindCpp
 
 compile : cmake . && make
-start : ./mastermind.o
+start : ./mastermind
