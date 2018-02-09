@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Mastermind)
 
-add_executable(
-	mastermind.o
+set(CPP 
 	main.cpp
 	Chain.cpp
-	RandMaster.cpp
-)
+	RandMaster.cpp)
+
+add_executable(mastermind.o ${CPP})
