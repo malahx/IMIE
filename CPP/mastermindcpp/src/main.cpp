@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ctime>
-#include "Chain.hpp"
+#include <Chain.hpp>
 
 std::string getValues();
 

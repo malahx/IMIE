@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "RandMaster.hpp"
+#include <RandMaster.hpp>
 
 #ifndef TP_CHAIN_H
 #define TP_CHAIN_H

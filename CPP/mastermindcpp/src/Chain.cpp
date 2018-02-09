@@ -2,7 +2,7 @@
 // Created by malah on 07/02/18.
 //
 
-#include "Chain.hpp"
+#include <Chain.hpp>
 
 void Chain::resetValues() {
     for (auto i = 0; i < NB_VALUE; ++i) {
