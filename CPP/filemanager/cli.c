@@ -63,19 +63,19 @@ config* initConfig(char* fromFileName) {
     return cfg;
 }
 
+char* getNextParam(char* argv[], int argc, int index, char* value) {
+    return argc > index + 1 ? argv[index +1] : value;
+}
+
 void parseConfig(config* cfg, int argc, char* argv[]) {
     for (int i = 2; i < argc; ++i) {
         if (argv[i][0] == '-') {
             switch (argv[i][1]) {
                 case MODE:
-                    if (argc > i + 1) {
-                        cfg->mode = argv[i +1];
-                    }
+                    cfg->mode = getNextParam(argv, argc, i, "r");
                     break;
                 case COPIE:
-                    if (argc > i + 1) {
-                        cfg->toFileName = argv[i +1];
-                    }
+                    cfg->toFileName = getNextParam(argv, argc, i, NULL);
                     break;
                 case BIN:
                     cfg->binary = 1;
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     parseConfig(cfg, argc, argv);
     drawConfig(cfg);
     if (cfg->binary == 0) {
-        cfg->toFileName == NULL ? printFile(cfg) ? copieFile(cfg);
+        cfg->toFileName == NULL ? printFile(cfg) : copieFile(cfg);
     } else {
         cfg->toFileName == NULL ? printFileBin(cfg) : copieFileBin(cfg);
     }
