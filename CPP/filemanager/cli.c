@@ -1,54 +1,112 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 
 #define MODE 'm'
 #define COPIE 'o'
+#define BIN 'b'
 
-void printFile(FILE* file) {
+typedef struct config {
+    char* fromFileName;
+    char* toFileName;
+    char* mode;
+    int binary;
+} config;
+
+void printFile(config* cfg) {
+    FILE *from = fopen(cfg->fromFileName, cfg->mode);
     int c;
-    while ((c = getc(file)) != EOF) {
+    while ((c = getc(from)) != EOF) {
         putchar(c);
     }
-    fclose(file);
+    fclose(from);
 }
-void copieFile(FILE* file, char* fileName) {
-    FILE *copie = fopen(fileName, "w+");
+void copieFile(config* cfg) {
+    FILE *from = fopen(cfg->fromFileName, cfg->mode);
+    FILE *to = fopen(cfg->toFileName, "w+");
     char c;
-    while ((c = (char) getc(file)) != EOF) {
-        fputc(c, copie);
+    while ((c = (char) getc(from)) != EOF) {
+        fputc(c, to);
     }
-    fclose(file);
-    fclose(copie);
+    fclose(from);
+    fclose(to);
+}
+void printFileBin(config* cfg) {
+    FILE *from = fopen(cfg->fromFileName, "rb");
+    struct stat info;
+    stat(cfg->fromFileName, &info);
+    char *content = malloc(info.st_size);
+    fread(content, info.st_size, 1, from);
+    fclose(from);
+    for (int i = 0; content[i] != '\0'; ++i) {
+        printf("%c", content[i]);
+    }
+}
+void copieFileBin(config* cfg) {
+    FILE *from = fopen(cfg->fromFileName, "rb");
+    struct stat info;
+    stat(cfg->fromFileName, &info);
+    char *content = malloc(info.st_size);
+    size_t blocks_read = fread(content, info.st_size, 1, from);
+    FILE *to = fopen(cfg->toFileName, "wb");
+    fwrite(content, blocks_read, info.st_size, to);
+    fclose(from);
+    fclose(to);
+}
+
+config* initConfig(char* fromFileName) {
+    config* cfg = (config *) malloc(sizeof(config));
+    cfg->mode = "r";
+    cfg->fromFileName = fromFileName;
+    cfg->toFileName = NULL;
+    cfg->binary = 0;
+    return cfg;
+}
+
+void parseConfig(config* cfg, int argc, char* argv[]) {
+    for (int i = 2; i < argc; ++i) {
+        if (argv[i][0] == '-') {
+            switch (argv[i][1]) {
+                case MODE:
+                    if (argc > i + 1) {
+                        cfg->mode = argv[i +1];
+                    }
+                    break;
+                case COPIE:
+                    if (argc > i + 1) {
+                        cfg->toFileName = argv[i +1];
+                    }
+                    break;
+                case BIN:
+                    cfg->binary = 1;
+                    break;
+            }
+        }
+    }
+}
+void drawConfig(config* cfg) {
+    printf("filename: %s\n", cfg->fromFileName);
+    printf("binary mode: %d\n", cfg->binary);
+    if (cfg->binary == 0) {
+        printf("mode: %s\n", cfg->mode);
+    }
+    if (cfg->toFileName != NULL) {
+        printf("copie to: %s\n", cfg->toFileName);
+    }
 }
 
 int main(int argc, char *argv[]) {
-    char* mode = "r";
-    char* copieFileName = NULL;
     if (argc < 2) {
         printf("Need a filename ...\n");
         return 1;
     }
-    char* fileName = argv[1];
-    for (int i = 2; i < argc; ++i) {
-        printf("%s\n", argv[i]);
-        if (argv[i][0] == '-' && argc > i + 1) {
-            switch (argv[i][1]) {
-                case MODE: 
-                    mode = argv[i +1]; 
-                    break;
-                case COPIE: 
-                    copieFileName = argv[i +1]; 
-                    break;
-            }
-        }
-    } 
-    printf("filename: %s\n", fileName);
-    printf("mode: %s\n", mode);
-    printf("copie to: %s\n", copieFileName);
-    FILE *file = fopen(fileName, mode);
-    if (copieFileName == NULL) {
-        printFile(file);
+    config* cfg = initConfig(argv[1]);
+    parseConfig(cfg, argc, argv);
+    drawConfig(cfg);
+    if (cfg->binary == 0) {
+        cfg->toFileName == NULL ? printFile(cfg) ? copieFile(cfg);
     } else {
-        copieFile(file, copieFileName);
+        cfg->toFileName == NULL ? printFileBin(cfg) : copieFileBin(cfg);
     }
     return 0;
 }
