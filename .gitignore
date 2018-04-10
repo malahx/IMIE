@@ -14,3 +14,4 @@ imie.ics
 /gmpvpc*
 plantuml.jar
 package-lock.json
+embedded/
