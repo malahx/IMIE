@@ -1,0 +1,61 @@
+ext {
+    config = [
+        version : [
+            springBoot : [
+//                core : '1.5.10.RELEASE',
+                core : '2.0.2.RELEASE',
+                swagger : '2.8.0'
+            ],
+            lib : [
+                junit : '4.12',
+                guava : '11.0.2',
+                lombok : '1.16.22',
+                postgresql : '9.4.1212.jre7',
+                h2database : '1.4.196',
+                modelmapper : '1.1.0'
+            ]
+        ]
+    ]
+    lib = [
+        guava  : "com.google.guava:guava:${config.version.lib.guava}",
+        junit : "junit:junit:${config.version.lib.junit}",
+        lombok : "org.projectlombok:lombok:${config.version.lib.lombok}",
+        postgresql : "org.postgresql:postgresql:${config.version.lib.postgresql}",
+        h2database : "com.h2database:h2:${config.version.lib.h2database}",
+        modelmapper : "org.modelmapper:modelmapper:${config.version.lib.modelmapper}",
+        springBoot : [
+            gradlePlugin : "org.springframework.boot:spring-boot-gradle-plugin:${config.version.springBoot.core}",
+            starter : [
+                web      : "org.springframework.boot:spring-boot-starter-web:${config.version.springBoot.core}",
+                webService : "org.springframework.boot:spring-boot-starter-web-services:${config.version.springBoot.core}",
+                tomcat   : "org.springframework.boot:spring-boot-starter-tomcat:${config.version.springBoot.core}",
+                dataRest : "org.springframework.boot:spring-boot-starter-data-rest:${config.version.springBoot.core}",
+                dataJpa  : "org.springframework.boot:spring-boot-starter-data-jpa:${config.version.springBoot.core}",
+                dataMongo :"org.springframework.boot:spring-boot-starter-data-mongodb:${config.version.springBoot.core}",
+                mail     : "org.springframework.boot:spring-boot-starter-mail:${config.version.springBoot.core}",
+                amqp     : "org.springframework.boot:spring-boot-starter-amqp:${config.version.springBoot.core}",
+                security : "org.springframework.boot:spring-boot-starter-security:${config.version.springBoot.core}",
+                test     : "org.springframework.boot:spring-boot-starter-test:${config.version.springBoot.core}"
+            ],
+            devtools     : "org.springframework.boot:spring-boot-devtools:${config.version.springBoot.core}",
+            dependencies : "org.springframework.boot:spring-boot-dependencies:${config.version.springBoot.core}",
+            test : [
+                core     : "org.springframework.boot:spring-boot-starter-test:${config.version.springBoot.core}",
+                security : "org.springframework.security:spring-security-test:4.2.4.RELEASE",
+                mockmvc  : "org.springframework.restdocs:spring-restdocs-mockmvc:1.1.3.RELEASE"
+            ],
+            security : [
+                core     : "org.springframework.security:spring-security-core:4.0.3.RELEASE",
+                web      : "org.springframework.security:spring-security-web:4.2.4.RELEASE",
+                oauth2   : "org.springframework.security.oauth:spring-security-oauth2:2.0.14.RELEASE"
+            ],
+            swagger : [
+                swagger2 : "io.springfox:springfox-swagger2:${config.version.springBoot.swagger}",
+                dataRest : "io.springfox:springfox-data-rest:${config.version.springBoot.swagger}",
+                beanValidators : "io.springfox:springfox-bean-validators:${config.version.springBoot.swagger}",
+                swaggerUi : "io.springfox:springfox-swagger-ui:${config.version.springBoot.swagger}"
+            ]
+        ]
+    ]
+}
+

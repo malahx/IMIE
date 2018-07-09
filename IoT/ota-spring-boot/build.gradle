@@ -1,0 +1,154 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    apply from: 'version.gradle'
+    dependencies { classpath lib.springBoot.gradlePlugin }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.0.5.RELEASE"
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
+//apply from: '../gradle/script/quality_rules.gradle'
+
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+//    compile("${lib.springBoot.starter.web}")
+//    compile("${lib.springBoot.starter.webService}")
+    compile("${lib.springBoot.starter.tomcat}")
+    compile("${lib.springBoot.starter.dataRest}")
+    compile("${lib.springBoot.starter.dataJpa}")
+//    compile("${lib.springBoot.starter.mail}")
+//    compile("${lib.springBoot.starter.amqp}")
+
+    //  for dev
+    runtime("${lib.springBoot.devtools}")
+
+    // Database
+    runtime("${lib.postgresql}")
+
+    // Security:
+//    compile("org.springframework.security:spring-security-web:4.2.4.RELEASE")
+//    compile("org.springframework.boot:spring-boot-starter-security:${config.version.springBoot.core}")
+//    compile 'org.springframework.security:spring-security-core:4.0.3.RELEASE'
+//    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.14.RELEASE")
+
+    // Rest:
+    compile("${lib.springBoot.swagger.swagger2}")
+    compile("${lib.springBoot.swagger.dataRest}")
+    compile("${lib.springBoot.swagger.beanValidators}")
+    compile("${lib.springBoot.swagger.swaggerUi}")
+
+    // Date formatting about JSON.
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+//    compile("com.voodoodyne.jackson.jsog:jackson-jsog:1.1.1")
+
+    // Simplify getter/setter definitions:
+    compile("${lib.modelmapper}")
+
+    compileOnly("${lib.lombok}")
+
+    // Test
+    testCompile("${lib.junit}")
+    testCompile("${lib.springBoot.test.core}")
+    testCompile("${lib.springBoot.test.security}")
+    testCompile("${lib.springBoot.test.mockmvc}")
+    compile("${lib.h2database}")
+
+}
+// Test cases.
+test {
+    ignoreFailures = false
+}
+
+// Build number.
+def buildNumber = ""
+if (project.file("build.properties").exists()) {
+    def props = new Properties()
+
+    props.load(new FileInputStream(project.file("build.properties")))
+    buildNumber = ".${props.buildNumber}"
+} else {
+    buildNumber = ".0"
+}
+
+// Deploy Jar.
+jar {
+    baseName = project.name
+    version = project.version + buildNumber
+}
+
+war {
+    enabled = true
+    baseName = project.name
+    version = project.version + buildNumber
+}
+
+// Deploy Fat-Jar.
+task archive(type: Zip) {
+    group = 'Archive'
+    description = 'Create a zip with all binaries'
+
+    baseName project.name
+    classifier 'bin'
+    version project.version + buildNumber
+
+    from "$buildDir/libs"
+    include '*'
+
+    destinationDir(file("$buildDir/output/"))
+}
+
+def webappDir = "$projectDir/src/main/webapps"
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["$webappDir/dist", "$projectDir/src/main/resources"]
+        }
+    }
+}
+
+processResources {
+//  dependsOn "buildAngular"
+}
+
+task buildAngular(type: Exec) {
+    // installAngular should be run prior to this task
+    dependsOn "installAngular"
+    workingDir "$webappDir"
+    inputs.dir "$webappDir"
+    // Add task to the standard build group
+    group = BasePlugin.BUILD_GROUP
+    // ng doesn't exist as a file in windows -> ng.cmd
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+        commandLine "ng.cmd", "build", "-e", "staging", "--build-optimizer=false"
+    } else {
+        commandLine "ng", "build", "-e", "staging", "--build-optimizer=false"
+    }
+}
+
+task installAngular(type: Exec) {
+    workingDir "$webappDir"
+    inputs.dir "$webappDir"
+    group = BasePlugin.BUILD_GROUP
+    if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")) {
+        commandLine "yarn.cmd"
+    } else {
+        commandLine 'yarn'
+    }
+}
