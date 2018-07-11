@@ -34,7 +34,7 @@ dependencies {
     compile("${lib.springBoot.starter.dataRest}")
     compile("${lib.springBoot.starter.dataJpa}")
 //    compile("${lib.springBoot.starter.mail}")
-//    compile("${lib.springBoot.starter.amqp}")
+    compile("${lib.springBoot.starter.amqp}")
 
     //  for dev
     runtime("${lib.springBoot.devtools}")
@@ -69,6 +69,7 @@ dependencies {
     testCompile("${lib.springBoot.test.security}")
     testCompile("${lib.springBoot.test.mockmvc}")
     compile("${lib.h2database}")
+    compile('org.influxdb:influxdb-java:2.10')
 
 }
 // Test cases.

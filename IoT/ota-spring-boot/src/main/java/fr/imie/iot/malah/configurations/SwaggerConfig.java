@@ -1,6 +1,5 @@
-package fr.imie.malah.configurations;
+package fr.imie.iot.malah.configurations;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,18 +12,13 @@ import java.time.ZonedDateTime;
 
 @EnableSwagger2
 @Configuration
-public class CommonConfig {
+public class SwaggerConfig {
 
     @Value("${app.version}")
     private String appVersion;
 
     @Value("${app.name}")
     private String appName;
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 
     @Bean
     public Docket api() {

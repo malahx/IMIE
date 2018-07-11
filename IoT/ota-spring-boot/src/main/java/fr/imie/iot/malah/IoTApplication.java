@@ -1,4 +1,4 @@
-package fr.imie.malah;
+package fr.imie.iot.malah;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

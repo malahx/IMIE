@@ -1,4 +1,4 @@
-package fr.imie.malah.models;
+package fr.imie.iot.malah.models.entities;
 
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,13 +16,13 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected String id;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     @CreatedDate
-    protected ZonedDateTime createAt;
+    protected ZonedDateTime createdAt;
 
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     @LastModifiedDate
-    protected ZonedDateTime updateAt;
+    protected ZonedDateTime updatedAt;
 
     @Column(nullable = false)
     private String uuid;
@@ -42,13 +42,13 @@ public class Device {
     @PrePersist
     public void prePersist() {
         ZonedDateTime now = ZonedDateTime.now();
-        this.createAt = now;
-        this.updateAt = now;
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.updateAt = ZonedDateTime.now();
+        this.updatedAt = ZonedDateTime.now();
     }
 
 }

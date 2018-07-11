@@ -1,4 +1,4 @@
-package fr.imie.malah.models.dto;
+package fr.imie.iot.malah.models.dto;
 
 import lombok.Data;
 

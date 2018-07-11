@@ -1,6 +1,6 @@
-package fr.imie.malah.repositories;
+package fr.imie.iot.malah.repositories;
 
-import fr.imie.malah.models.Device;
+import fr.imie.iot.malah.models.entities.Device;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

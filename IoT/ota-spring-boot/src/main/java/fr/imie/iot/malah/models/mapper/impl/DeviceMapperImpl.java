@@ -1,15 +1,15 @@
-package fr.imie.malah.models.mapper;
+package fr.imie.iot.malah.models.mapper.impl;
 
-import fr.imie.malah.models.Device;
-import fr.imie.malah.models.dto.DeviceDTO;
+import fr.imie.iot.malah.models.entities.Device;
+import fr.imie.iot.malah.models.dto.DeviceDTO;
+import fr.imie.iot.malah.models.mapper.DeviceMapper;
 import lombok.AllArgsConstructor;
-import org.mapstruct.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class DeviceMapper {
+public class DeviceMapperImpl implements DeviceMapper {
 
     private ModelMapper modelMapper;
 
