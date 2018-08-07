@@ -51,9 +51,10 @@ public class ApiMockMvcTest {
 
         DivideResult expectedDivideResult = DivideResult.builder().value(RESULT).build();
 
-        mvc.perform(
-                get(DIVIDE.replace("{number}", String.valueOf(NUMBER)).replace("{by}", String.valueOf(VALUE)))
-        ).andExpect(status().isOk())
+        String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + VALUE + "}", String.valueOf(VALUE));
+
+        mvc.perform(get(url))
+                .andExpect(status().isOk())
                 .andExpect(content().json(toJson(expectedDivideResult)));
 
         verify(mockDivide).calc(NUMBER, VALUE);

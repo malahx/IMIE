@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Api {
 
-    public static final String DIVIDE = "/calculate/divide/{number}/{by}";
+    public static final String NUMBER = "number";
+    public static final String BY = "by";
+    public static final String DIVIDE = "/calculate/divide/{" + NUMBER + "}/{" + BY + "}";
 
     private Divide divide;
 
     @GetMapping(DIVIDE)
-    public DivideResult divide(@PathVariable("number") int number, @PathVariable("by") int by) {
+    public DivideResult divide(@PathVariable(NUMBER) int number, @PathVariable(BY) int by) {
 
         DivideResult divideResult = DivideResult.builder()
                 .value(divide.calc(number, by))
