@@ -1,8 +1,10 @@
-package fr.imie.malah.tests.unitaire;
+package fr.imie.malah.tests.unitaire.domain;
 
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
+@Component
 public class Divide {
 
     private Calc calc;

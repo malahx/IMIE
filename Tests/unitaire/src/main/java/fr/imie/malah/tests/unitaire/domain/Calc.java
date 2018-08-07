@@ -1,5 +1,8 @@
-package fr.imie.malah.tests.unitaire;
+package fr.imie.malah.tests.unitaire.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Calc {
 
     public int multiply(int number, int factor) {

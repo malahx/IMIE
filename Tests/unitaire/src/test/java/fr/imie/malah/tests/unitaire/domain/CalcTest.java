@@ -1,5 +1,6 @@
-package fr.imie.malah.tests.unitaire;
+package fr.imie.malah.tests.unitaire.domain;
 
+import fr.imie.malah.tests.unitaire.domain.Calc;
 import org.junit.Before;
 import org.junit.Test;
 

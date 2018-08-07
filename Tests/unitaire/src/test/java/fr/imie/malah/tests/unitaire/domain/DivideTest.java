@@ -1,4 +1,4 @@
-package fr.imie.malah.tests.unitaire;
+package fr.imie.malah.tests.unitaire.domain;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +8,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DivideTest {
