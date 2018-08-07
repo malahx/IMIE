@@ -9,9 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DivideTest {
@@ -135,6 +133,15 @@ public class DivideTest {
 
         verify(mockCalc, times(5)).multiply(eq(by), anyInt());
         assertThat(result).isEqualTo(4);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldDividePositiveByZero() {
+
+        int number = 24;
+        int by = 0;
+
+        divide.calc(number, by);
     }
 
 }
