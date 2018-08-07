@@ -34,7 +34,9 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, 1);
+        verify(mockCalc).multiply(by, 2);
         assertThat(result).isEqualTo(2);
     }
 
@@ -48,7 +50,7 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(1)).multiply(by, 0);
+        verify(mockCalc).multiply(by, 0);
         assertThat(result).isEqualTo(0);
     }
 
@@ -62,7 +64,7 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(1)).multiply(by, 0);
+        verify(mockCalc).multiply(by, 0);
         assertThat(result).isEqualTo(0);
     }
 
@@ -75,7 +77,8 @@ public class DivideTest {
         when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, 1);
         assertThat(result).isEqualTo(1);
     }
 
@@ -89,7 +92,8 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, -1);
         assertThat(result).isEqualTo(-1);
     }
 
@@ -103,7 +107,9 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, 1);
+        verify(mockCalc).multiply(by, 2);
         assertThat(result).isEqualTo(2);
     }
 
@@ -117,7 +123,9 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, -1);
+        verify(mockCalc).multiply(by, -2);
         assertThat(result).isEqualTo(-2);
     }
 
@@ -131,7 +139,11 @@ public class DivideTest {
 
         int result = divide.calc(number, by);
 
-        verify(mockCalc, times(5)).multiply(eq(by), anyInt());
+        verify(mockCalc).multiply(by, 0);
+        verify(mockCalc).multiply(by, 1);
+        verify(mockCalc).multiply(by, 2);
+        verify(mockCalc).multiply(by, 3);
+        verify(mockCalc).multiply(by, 4);
         assertThat(result).isEqualTo(4);
     }
 
