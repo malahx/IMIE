@@ -38,4 +38,16 @@ public class CalcTest {
         assertThat(result).isEqualTo(0);
     }
 
+    @Test
+    public void shouldMultiplyNegative() {
+        int result = calc.multiply(3, -1);
+        assertThat(result).isEqualTo(-3);
+    }
+
+    @Test
+    public void shouldMultiplyTwoNegative() {
+        int result = calc.multiply(-3, -1);
+        assertThat(result).isEqualTo(3);
+    }
+
 }
