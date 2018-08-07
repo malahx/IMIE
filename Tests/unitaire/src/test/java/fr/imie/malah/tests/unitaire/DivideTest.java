@@ -8,6 +8,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -100,6 +102,104 @@ public class DivideTest {
 
         verify(mockCalc).multiply(number, 1);
         assertThat(result).isEqualTo(1);
+    }
+
+
+    @Test
+    public void shouldOtherDivideTwoByOne() {
+
+        int number = 2;
+        int by = 1;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void shouldOtherDivideZeroByOne() {
+
+        int number = 0;
+        int by = 1;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(1)).multiply(by, 0);
+        assertThat(result).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldOtherDivideOneByTwo() {
+
+        int number = 1;
+        int by = 2;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(1)).multiply(by, 0);
+        assertThat(result).isEqualTo(0);
+    }
+
+    @Test
+    public void shouldOtherDivideThreeByThree() {
+
+        int number = 3;
+        int by = 3;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    public void shouldOtherDivideNegativeByPositive() {
+
+        int number = -3;
+        int by = 3;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(-1);
+    }
+
+    @Test
+    public void shouldOtherDivideNegativeByNegative() {
+
+        int number = -6;
+        int by = -3;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(2);
+    }
+
+    @Test
+    public void shouldOtherDividePositiveByNegative() {
+
+        int number = 6;
+        int by = -3;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+
+        int result = divide.otherCalc(number, by);
+
+        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(-2);
     }
 
 }
