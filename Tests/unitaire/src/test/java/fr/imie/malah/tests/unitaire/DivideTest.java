@@ -27,41 +27,44 @@ public class DivideTest {
     }
 
     @Test
-    public void shouldDivideTenByOne() {
+    public void shouldDivideTwoByOne() {
 
-        int number = 10;
+        int number = 2;
+        int by = 1;
 
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.calc(number, 1);
+        int result = divide.calc(number, by);
 
-        verify(mockCalc).multiply(number, 1);
-        assertThat(result).isEqualTo(10);
+        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(2);
     }
 
     @Test
     public void shouldDivideZeroByOne() {
 
         int number = 0;
+        int by = 1;
 
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.calc(number, 1);
+        int result = divide.calc(number, by);
 
-        verify(mockCalc).multiply(number, 1);
+        verify(mockCalc, times(1)).multiply(by, 0);
         assertThat(result).isEqualTo(0);
     }
 
     @Test
-    public void shouldDivideZeroByTwo() {
+    public void shouldDivideOneByTwo() {
 
-        int number = 0;
+        int number = 1;
+        int by = 2;
 
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.calc(number, 2);
+        int result = divide.calc(number, by);
 
-        verify(mockCalc).multiply(number, 1);
+        verify(mockCalc, times(1)).multiply(by, 0);
         assertThat(result).isEqualTo(0);
     }
 
@@ -69,12 +72,12 @@ public class DivideTest {
     public void shouldDivideThreeByThree() {
 
         int number = 3;
+        int by = 3;
 
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
+        int result = divide.calc(number, by);
 
-        int result = divide.calc(number, 3);
-
-        verify(mockCalc).multiply(number, 1);
+        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
         assertThat(result).isEqualTo(1);
     }
 
@@ -82,124 +85,56 @@ public class DivideTest {
     public void shouldDivideNegativeByPositive() {
 
         int number = -3;
+        int by = 3;
 
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.calc(number, 3);
+        int result = divide.calc(number, by);
 
-        verify(mockCalc).multiply(number, 1);
+        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
         assertThat(result).isEqualTo(-1);
     }
 
     @Test
     public void shouldDivideNegativeByNegative() {
 
-        int number = -3;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(number);
-
-        int result = divide.calc(number, -3);
-
-        verify(mockCalc).multiply(number, 1);
-        assertThat(result).isEqualTo(1);
-    }
-
-
-    @Test
-    public void shouldOtherDivideTwoByOne() {
-
-        int number = 2;
-        int by = 1;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
-
-        int result = divide.otherCalc(number, by);
-
-        verify(mockCalc, times(3)).multiply(eq(by), anyInt());
-        assertThat(result).isEqualTo(2);
-    }
-
-    @Test
-    public void shouldOtherDivideZeroByOne() {
-
-        int number = 0;
-        int by = 1;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
-
-        int result = divide.otherCalc(number, by);
-
-        verify(mockCalc, times(1)).multiply(by, 0);
-        assertThat(result).isEqualTo(0);
-    }
-
-    @Test
-    public void shouldOtherDivideOneByTwo() {
-
-        int number = 1;
-        int by = 2;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
-
-        int result = divide.otherCalc(number, by);
-
-        verify(mockCalc, times(1)).multiply(by, 0);
-        assertThat(result).isEqualTo(0);
-    }
-
-    @Test
-    public void shouldOtherDivideThreeByThree() {
-
-        int number = 3;
-        int by = 3;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
-        int result = divide.otherCalc(number, by);
-
-        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
-        assertThat(result).isEqualTo(1);
-    }
-
-    @Test
-    public void shouldOtherDivideNegativeByPositive() {
-
-        int number = -3;
-        int by = 3;
-
-        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
-
-        int result = divide.otherCalc(number, by);
-
-        verify(mockCalc, times(2)).multiply(eq(by), anyInt());
-        assertThat(result).isEqualTo(-1);
-    }
-
-    @Test
-    public void shouldOtherDivideNegativeByNegative() {
-
         int number = -6;
         int by = -3;
 
         when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.otherCalc(number, by);
+        int result = divide.calc(number, by);
 
         verify(mockCalc, times(3)).multiply(eq(by), anyInt());
         assertThat(result).isEqualTo(2);
     }
 
     @Test
-    public void shouldOtherDividePositiveByNegative() {
+    public void shouldDividePositiveByNegative() {
 
         int number = 6;
         int by = -3;
 
         when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3);
 
-        int result = divide.otherCalc(number, by);
+        int result = divide.calc(number, by);
 
         verify(mockCalc, times(3)).multiply(eq(by), anyInt());
         assertThat(result).isEqualTo(-2);
+    }
+
+    @Test
+    public void shouldDividePositiveByPositive() {
+
+        int number = 24;
+        int by = 6;
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(0, by, by * 2, by * 3, by * 4);
+
+        int result = divide.calc(number, by);
+
+        verify(mockCalc, times(5)).multiply(eq(by), anyInt());
+        assertThat(result).isEqualTo(4);
     }
 
 }

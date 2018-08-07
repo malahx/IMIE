@@ -8,12 +8,7 @@ public class Divide {
     private Calc calc;
 
     public int calc(int number, int by) {
-        return calc.multiply(number, 1) / by;
-    }
-
-    public int otherCalc(int number, int by) {
         int i = 0;
-        int lastIndex = 0;
         boolean sign = Integer.signum(number) == Integer.signum(by);
         while (true) {
            int multiply = calc.multiply(by, i);
@@ -21,9 +16,8 @@ public class Divide {
                 return i;
             }
             if (Math.abs(multiply) > Math.abs(number)) {
-                return lastIndex;
+                return sign ? i - 1 : i + 1;
             }
-            lastIndex = i;
             i += sign ? 1 : -1;
         }
     }
