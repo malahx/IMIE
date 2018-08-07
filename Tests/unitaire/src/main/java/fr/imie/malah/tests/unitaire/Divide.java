@@ -9,17 +9,17 @@ public class Divide {
 
     public int calc(int number, int by) {
         int i = 0;
-        boolean sign = Integer.signum(number) == Integer.signum(by);
-        int numberAbs = Math.abs(number);
+        int interval = Integer.signum(number) == Integer.signum(by) ? 1 : -1;
+        number = Math.abs(number);
         while (true) {
             int multiply = Math.abs(calc.multiply(by, i));
-            if (multiply == numberAbs) {
+            if (multiply == number) {
                 return i;
             }
-            if (multiply > numberAbs) {
-                return sign ? i - 1 : i + 1;
+            if (multiply > number) {
+                return i - interval;
             }
-            i += sign ? 1 : -1;
+            i += interval;
         }
     }
 }
