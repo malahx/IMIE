@@ -25,7 +25,6 @@ public class ApiIT {
 
     private static final int NUMBER = 6;
     private static final int VALUE = 3;
-    private static final int RESULT = 2;
 
     @Autowired
     private MockMvc mvc;
@@ -33,7 +32,7 @@ public class ApiIT {
     @Test
     public void shouldDivide() throws Exception {
 
-        DivideResult expectedDivideResult = DivideResult.builder().value(RESULT).build();
+        DivideResult expectedDivideResult = DivideResult.builder().value(2).build();
 
         String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.BY + "}", String.valueOf(VALUE));
 
