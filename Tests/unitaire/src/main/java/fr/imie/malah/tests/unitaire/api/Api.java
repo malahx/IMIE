@@ -26,20 +26,16 @@ public class Api {
     @GetMapping(DIVIDE)
     public DivideResult divide(@PathVariable(NUMBER) int number, @PathVariable(BY) int by) {
 
-        DivideResult divideResult = DivideResult.builder()
+        return DivideResult.builder()
                 .value(divide.calc(number, by))
                 .build();
-
-        return divideResult;
     }
 
     @GetMapping(MULTIPLY)
     public MultiplyResult multiply(@PathVariable(NUMBER) int number, @PathVariable(FACTOR) int factor) {
 
-        MultiplyResult multiplyResult = MultiplyResult.builder()
+        return MultiplyResult.builder()
                 .value(calc.multiply(number, factor))
                 .build();
-
-        return multiplyResult;
     }
 }
