@@ -2,8 +2,8 @@ package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.DivideResult;
 import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.domain.Divide;
 import fr.imie.malah.tests.unitaire.domain.impl.CalcImpl;
-import fr.imie.malah.tests.unitaire.domain.impl.DivideImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +19,7 @@ public class Api {
     public static final String DIVIDE = "/calculate/divide/{" + NUMBER + "}/{" + BY + "}";
     public static final String MULTIPLY = "/calculate/multiply/{" + NUMBER + "}/{" + FACTOR + "}";
 
-    private DivideImpl divide;
+    private Divide divide;
 
     private CalcImpl calc;
 

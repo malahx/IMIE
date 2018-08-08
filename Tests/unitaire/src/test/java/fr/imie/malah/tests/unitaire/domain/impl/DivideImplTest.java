@@ -1,7 +1,7 @@
-package fr.imie.malah.tests.unitaire.domain;
+package fr.imie.malah.tests.unitaire.domain.impl;
 
-import fr.imie.malah.tests.unitaire.domain.impl.CalcImpl;
-import fr.imie.malah.tests.unitaire.domain.impl.DivideImpl;
+import fr.imie.malah.tests.unitaire.domain.Calc;
+import fr.imie.malah.tests.unitaire.domain.Divide;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,10 +16,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DivideImplTest {
 
-    private DivideImpl divide;
+    private Divide divide;
 
     @Mock
-    private CalcImpl mockCalc;
+    private Calc mockCalc;
 
     @Before
     public void setUp() {

@@ -1,12 +1,13 @@
 package fr.imie.malah.tests.unitaire.domain.impl;
 
 import fr.imie.malah.tests.unitaire.domain.Calc;
+import fr.imie.malah.tests.unitaire.domain.Divide;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-public class DivideImpl {
+public class DivideImpl implements Divide {
 
     private Calc calc;
 

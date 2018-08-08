@@ -2,9 +2,10 @@ package fr.imie.malah.tests.unitaire.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
-import okhttp3.*;
-import okhttp3.internal.http.RealResponseBody;
-import okio.Buffer;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 
+import static fr.imie.malah.tests.unitaire.TestData.createResponse;
 import static fr.imie.malah.tests.unitaire.api.Api.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -46,13 +48,7 @@ public class CalcClientTest {
                 .url(CalcClient.URL + MULTIPLY.replace("{" + NUMBER + "}", "1").replace("{" + FACTOR + "}", "2"))
                 .get()
                 .build();
-        Response response = new Response.Builder()
-                .body(new RealResponseBody("application/json", 10, new Buffer()))
-                .request(request)
-                .protocol(Protocol.HTTP_1_1)
-                .code(200)
-                .message("{value: 2}")
-                .build();
+        Response response = createResponse("{value: 2}", request);
 
         when(mockOkHttpClient.newCall(any())).thenReturn(mockCall);
         when(mockCall.execute()).thenReturn(response);
