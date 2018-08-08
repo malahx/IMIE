@@ -2,7 +2,7 @@ package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.Result;
 import fr.imie.malah.tests.unitaire.domain.Calc;
-import fr.imie.malah.tests.unitaire.domain.impl.DivideImpl;
+import fr.imie.malah.tests.unitaire.domain.Divide;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ public class ApiTest {
     private Api api;
 
     @Mock
-    private DivideImpl mockDivide;
+    private Divide mockDivide;
 
     @Mock
     private Calc mockCalc;
