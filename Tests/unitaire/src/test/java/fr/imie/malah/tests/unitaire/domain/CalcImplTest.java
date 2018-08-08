@@ -1,18 +1,18 @@
 package fr.imie.malah.tests.unitaire.domain;
 
-import fr.imie.malah.tests.unitaire.domain.Calc;
+import fr.imie.malah.tests.unitaire.domain.impl.CalcImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class CalcTest {
+public class CalcImplTest {
 
-    private Calc calc;
+    private CalcImpl calc;
 
     @Before
     public void setUp() {
-        calc = new Calc();
+        calc = new CalcImpl();
     }
 
     @Test

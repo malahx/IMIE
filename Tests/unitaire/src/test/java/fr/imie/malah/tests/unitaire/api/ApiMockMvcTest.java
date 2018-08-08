@@ -2,8 +2,8 @@ package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.DivideResult;
 import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
-import fr.imie.malah.tests.unitaire.domain.Calc;
-import fr.imie.malah.tests.unitaire.domain.Divide;
+import fr.imie.malah.tests.unitaire.domain.impl.CalcImpl;
+import fr.imie.malah.tests.unitaire.domain.impl.DivideImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,10 +37,10 @@ public class ApiMockMvcTest {
     private MockMvc mvc;
 
     @MockBean
-    private Divide mockDivide;
+    private DivideImpl mockDivide;
 
     @MockBean
-    private Calc mockCalc;
+    private CalcImpl mockCalc;
 
     @Autowired
     private WebApplicationContext context;
