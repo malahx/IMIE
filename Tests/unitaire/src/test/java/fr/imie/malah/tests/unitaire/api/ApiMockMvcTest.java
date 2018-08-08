@@ -1,6 +1,8 @@
 package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.DivideResult;
+import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.domain.Calc;
 import fr.imie.malah.tests.unitaire.domain.Divide;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +17,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static fr.imie.malah.tests.unitaire.api.Api.DIVIDE;
+import static fr.imie.malah.tests.unitaire.api.Api.MULTIPLY;
 import static fr.imie.malah.tests.unitaire.utils.TestUtils.toJson;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
@@ -36,6 +39,9 @@ public class ApiMockMvcTest {
     @MockBean
     private Divide mockDivide;
 
+    @MockBean
+    private Calc mockCalc;
+
     @Autowired
     private WebApplicationContext context;
 
@@ -51,12 +57,28 @@ public class ApiMockMvcTest {
 
         DivideResult expectedDivideResult = DivideResult.builder().value(RESULT).build();
 
-        String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + VALUE + "}", String.valueOf(VALUE));
+        String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.BY + "}", String.valueOf(VALUE));
 
         mvc.perform(get(url))
                 .andExpect(status().isOk())
                 .andExpect(content().json(toJson(expectedDivideResult)));
 
         verify(mockDivide).calc(NUMBER, VALUE);
+    }
+
+    @Test
+    public void shouldMultiply() throws Exception {
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(RESULT);
+
+        MultiplyResult expectedMultiplyResult = MultiplyResult.builder().value(RESULT).build();
+
+        String url = MULTIPLY.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.FACTOR + "}", String.valueOf(VALUE));
+
+        mvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(expectedMultiplyResult)));
+
+        verify(mockCalc).multiply(NUMBER, VALUE);
     }
 }

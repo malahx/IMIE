@@ -1,6 +1,8 @@
 package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.DivideResult;
+import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.domain.Calc;
 import fr.imie.malah.tests.unitaire.domain.Divide;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,13 @@ public class Api {
 
     public static final String NUMBER = "number";
     public static final String BY = "by";
+    public static final String FACTOR = "factor";
     public static final String DIVIDE = "/calculate/divide/{" + NUMBER + "}/{" + BY + "}";
+    public static final String MULTIPLY = "/calculate/multiply/{" + NUMBER + "}/{" + FACTOR + "}";
 
     private Divide divide;
+
+    private Calc calc;
 
     @GetMapping(DIVIDE)
     public DivideResult divide(@PathVariable(NUMBER) int number, @PathVariable(BY) int by) {
@@ -25,5 +31,15 @@ public class Api {
                 .build();
 
         return divideResult;
+    }
+
+    @GetMapping(MULTIPLY)
+    public MultiplyResult multiply(@PathVariable(NUMBER) int number, @PathVariable(FACTOR) int factor) {
+
+        MultiplyResult multiplyResult = MultiplyResult.builder()
+                .value(calc.multiply(number, factor))
+                .build();
+
+        return multiplyResult;
     }
 }

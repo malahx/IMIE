@@ -1,6 +1,8 @@
 package fr.imie.malah.tests.unitaire.api;
 
 import fr.imie.malah.tests.unitaire.api.model.DivideResult;
+import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.domain.Calc;
 import fr.imie.malah.tests.unitaire.domain.Divide;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +24,12 @@ public class ApiTest {
     @Mock
     private Divide mockDivide;
 
+    @Mock
+    private Calc mockCalc;
+
     @Before
     public void setUp() {
-        api = new Api(mockDivide);
+        api = new Api(mockDivide, mockCalc);
     }
 
     @Test
@@ -36,5 +41,16 @@ public class ApiTest {
 
         assertThat(divideResult).isNotNull();
         assertThat(divideResult.getValue()).isEqualTo(VALUE);
+    }
+
+    @Test
+    public void shouldMultiply() {
+
+        when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(VALUE);
+
+        MultiplyResult multiplyResult = api.multiply(1, 2);
+
+        assertThat(multiplyResult).isNotNull();
+        assertThat(multiplyResult.getValue()).isEqualTo(VALUE);
     }
 }
