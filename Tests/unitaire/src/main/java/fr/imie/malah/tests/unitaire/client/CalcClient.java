@@ -15,7 +15,7 @@ import static fr.imie.malah.tests.unitaire.api.Api.*;
 @AllArgsConstructor
 public class CalcClient implements Calc {
 
-    public static final String URL = "http://localhost:8080";
+    public static final String URL = "http://127.0.0.1:8080";
 
     private OkHttpClient okHttpClient;
 
@@ -24,14 +24,16 @@ public class CalcClient implements Calc {
     @Override
     public int multiply(int number, int factor) {
 
+        String url = URL + MULTIPLY.replace("{" + NUMBER + "}", String.valueOf(number)).replace("{" + FACTOR + "}", String.valueOf(factor));
         Request request = new Request.Builder()
-                .url(URL + MULTIPLY.replace("{" + NUMBER + "}", "1").replace("{" + FACTOR + "}", "2"))
+                .url(url)
                 .get()
                 .build();
 
         try {
             Response response = okHttpClient.newCall(request).execute();
-            MultiplyResult multiplyResult = objectMapper.readValue(response.body().string(), MultiplyResult.class);
+            String json = response.body().string();
+            MultiplyResult multiplyResult = objectMapper.readValue(json, MultiplyResult.class);
             return multiplyResult.getValue();
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -17,7 +17,6 @@ import static fr.imie.malah.tests.unitaire.api.Api.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -70,18 +69,6 @@ public class CalcClientTest {
 
     @Test(expected = RuntimeException.class)
     public void shouldThrowRunTimeExceptionWhenRetrieveMultiplyWithAnError() throws IOException {
-
-        Request request = new Request.Builder()
-                .url(CalcClient.URL + MULTIPLY.replace("{" + NUMBER + "}", "1").replace("{" + FACTOR + "}", "2"))
-                .get()
-                .build();
-        Response response = new Response.Builder()
-                .body(new RealResponseBody("application/json", 10, new Buffer()))
-                .request(request)
-                .protocol(Protocol.HTTP_1_1)
-                .code(200)
-                .message("{value: 2}")
-                .build();
 
         when(mockOkHttpClient.newCall(any())).thenReturn(mockCall);
         when(mockCall.execute()).thenThrow(new IOException());
