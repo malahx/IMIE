@@ -51,4 +51,24 @@ public class CalcImplTest {
         assertThat(result).isEqualTo(3);
     }
 
+    @Test
+    public void shouldCalculateImc() {
+
+        int expectedResult = 60 / (int) Math.pow(1.70, 2);
+
+        int result = calc.imc(60, 1.70f);
+
+        assertThat(result).isEqualTo(expectedResult);
+    }
+
+    @Test
+    public void shouldCalculateAnOtherImc() {
+
+        int expectedResult = 40 / (int) Math.pow(1.50, 2);
+
+        int result = calc.imc(40, 1.50f);
+
+        assertThat(result).isEqualTo(expectedResult);
+    }
+
 }

@@ -1,8 +1,8 @@
 package fr.imie.malah.tests.unitaire.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
-import fr.imie.malah.tests.unitaire.domain.Calc;
+import fr.imie.malah.tests.unitaire.api.model.Result;
+import fr.imie.malah.tests.unitaire.domain.Multiply;
 import lombok.AllArgsConstructor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import static fr.imie.malah.tests.unitaire.api.Api.*;
 
 @AllArgsConstructor
-public class CalcClient implements Calc {
+public class MultiplyClient implements Multiply {
 
     public static final String URL = "http://127.0.0.1:8080";
 
@@ -33,8 +33,8 @@ public class CalcClient implements Calc {
         try {
             Response response = okHttpClient.newCall(request).execute();
             String json = response.body().string();
-            MultiplyResult multiplyResult = objectMapper.readValue(json, MultiplyResult.class);
-            return multiplyResult.getValue();
+            Result result = objectMapper.readValue(json, Result.class);
+            return result.getValue();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

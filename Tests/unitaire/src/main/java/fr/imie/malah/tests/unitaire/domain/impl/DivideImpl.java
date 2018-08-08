@@ -1,7 +1,7 @@
 package fr.imie.malah.tests.unitaire.domain.impl;
 
-import fr.imie.malah.tests.unitaire.domain.Calc;
 import fr.imie.malah.tests.unitaire.domain.Divide;
+import fr.imie.malah.tests.unitaire.domain.Multiply;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DivideImpl implements Divide {
 
-    private Calc calc;
+    private Multiply multiply;
 
     public int calc(int number, int by) {
         if (by == 0) {
@@ -19,7 +19,7 @@ public class DivideImpl implements Divide {
         int interval = Integer.signum(number) == Integer.signum(by) ? 1 : -1;
         number = Math.abs(number);
         while (true) {
-            int multiply = Math.abs(calc.multiply(by, i));
+            int multiply = Math.abs(this.multiply.multiply(by, i));
             if (multiply == number) {
                 return i;
             }

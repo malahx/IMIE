@@ -1,7 +1,6 @@
 package fr.imie.malah.tests.unitaire.domain;
 
-public interface Calc {
+public interface Calc extends Multiply {
 
-    int multiply(int number, int factor);
-
+    int imc(int p, float t);
 }

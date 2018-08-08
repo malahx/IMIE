@@ -1,9 +1,7 @@
 package fr.imie.malah.tests.unitaire.domain.impl;
 
 import fr.imie.malah.tests.unitaire.domain.Calc;
-import org.springframework.stereotype.Component;
 
-@Component
 public class CalcImpl implements Calc {
 
     public int multiply(int number, int factor) {
@@ -12,6 +10,11 @@ public class CalcImpl implements Calc {
             result += factor > 0 ? number : -number;
         }
         return result;
+    }
+
+    @Override
+    public int imc(int weight, float height) {
+        return weight / (int) Math.pow(height, 2);
     }
 
 }

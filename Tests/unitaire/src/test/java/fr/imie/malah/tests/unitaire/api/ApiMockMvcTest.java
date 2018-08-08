@@ -1,9 +1,8 @@
 package fr.imie.malah.tests.unitaire.api;
 
-import fr.imie.malah.tests.unitaire.api.model.DivideResult;
-import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
-import fr.imie.malah.tests.unitaire.domain.impl.CalcImpl;
-import fr.imie.malah.tests.unitaire.domain.impl.DivideImpl;
+import fr.imie.malah.tests.unitaire.api.model.Result;
+import fr.imie.malah.tests.unitaire.domain.Calc;
+import fr.imie.malah.tests.unitaire.domain.Divide;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,9 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static fr.imie.malah.tests.unitaire.api.Api.DIVIDE;
-import static fr.imie.malah.tests.unitaire.api.Api.MULTIPLY;
+import static fr.imie.malah.tests.unitaire.api.Api.*;
 import static fr.imie.malah.tests.unitaire.utils.TestUtils.toJson;
+import static org.mockito.ArgumentMatchers.anyFloat;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,10 +36,10 @@ public class ApiMockMvcTest {
     private MockMvc mvc;
 
     @MockBean
-    private DivideImpl mockDivide;
+    private Divide mockDivide;
 
     @MockBean
-    private CalcImpl mockCalc;
+    private Calc mockCalc;
 
     @Autowired
     private WebApplicationContext context;
@@ -55,13 +54,13 @@ public class ApiMockMvcTest {
 
         when(mockDivide.calc(anyInt(), anyInt())).thenReturn(RESULT);
 
-        DivideResult expectedDivideResult = DivideResult.builder().value(RESULT).build();
+        Result expectedResult = Result.builder().value(RESULT).build();
 
         String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.BY + "}", String.valueOf(VALUE));
 
         mvc.perform(get(url))
                 .andExpect(status().isOk())
-                .andExpect(content().json(toJson(expectedDivideResult)));
+                .andExpect(content().json(toJson(expectedResult)));
 
         verify(mockDivide).calc(NUMBER, VALUE);
     }
@@ -71,14 +70,30 @@ public class ApiMockMvcTest {
 
         when(mockCalc.multiply(anyInt(), anyInt())).thenReturn(RESULT);
 
-        MultiplyResult expectedMultiplyResult = MultiplyResult.builder().value(RESULT).build();
+        Result expectedResult = Result.builder().value(RESULT).build();
 
         String url = MULTIPLY.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.FACTOR + "}", String.valueOf(VALUE));
 
         mvc.perform(get(url))
                 .andExpect(status().isOk())
-                .andExpect(content().json(toJson(expectedMultiplyResult)));
+                .andExpect(content().json(toJson(expectedResult)));
 
         verify(mockCalc).multiply(NUMBER, VALUE);
+    }
+
+    @Test
+    public void shouldCalculateImc() throws Exception {
+
+        when(mockCalc.imc(anyInt(), anyFloat())).thenReturn(RESULT);
+
+        Result expectedResult = Result.builder().value(RESULT).build();
+
+        String url = IMC.replace("{" + Api.WEIGHT + "}", String.valueOf(NUMBER)).replace("{" + Api.HEIGHT + "}", String.valueOf(VALUE));
+
+        mvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(expectedResult)));
+
+        verify(mockCalc).imc(NUMBER, (float) VALUE);
     }
 }

@@ -1,7 +1,7 @@
 package fr.imie.malah.tests.unitaire.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.api.model.Result;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,9 +23,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CalcClientTest {
+public class MultiplyClientTest {
 
-    private CalcClient calcClient;
+    private MultiplyClient multiplyClient;
 
     @Mock
     private OkHttpClient mockOkHttpClient;
@@ -38,27 +38,27 @@ public class CalcClientTest {
 
     @Before
     public void setUp() {
-        calcClient = new CalcClient(mockOkHttpClient, mockObjectMapper);
+        multiplyClient = new MultiplyClient(mockOkHttpClient, mockObjectMapper);
     }
 
     @Test
     public void shouldRetrieveMultiply() throws IOException {
 
         Request request = new Request.Builder()
-                .url(CalcClient.URL + MULTIPLY.replace("{" + NUMBER + "}", "1").replace("{" + FACTOR + "}", "2"))
+                .url(MultiplyClient.URL + MULTIPLY.replace("{" + NUMBER + "}", "1").replace("{" + FACTOR + "}", "2"))
                 .get()
                 .build();
         Response response = createResponse("{value: 2}", request);
 
         when(mockOkHttpClient.newCall(any())).thenReturn(mockCall);
         when(mockCall.execute()).thenReturn(response);
-        when(mockObjectMapper.readValue(anyString(), any(Class.class))).thenReturn(MultiplyResult.builder().value(2).build());
+        when(mockObjectMapper.readValue(anyString(), any(Class.class))).thenReturn(Result.builder().value(2).build());
 
-        int multiply = calcClient.multiply(1, 2);
+        int multiply = multiplyClient.multiply(1, 2);
 
         verify(mockOkHttpClient).newCall(any());
         verify(mockCall).execute();
-        verify(mockObjectMapper).readValue(response.body().string(), MultiplyResult.class);
+        verify(mockObjectMapper).readValue(response.body().string(), Result.class);
 
         assertThat(multiply).isEqualTo(2);
     }
@@ -69,7 +69,7 @@ public class CalcClientTest {
         when(mockOkHttpClient.newCall(any())).thenReturn(mockCall);
         when(mockCall.execute()).thenThrow(new IOException());
 
-        calcClient.multiply(1, 2);
+        multiplyClient.multiply(1, 2);
     }
 
 }

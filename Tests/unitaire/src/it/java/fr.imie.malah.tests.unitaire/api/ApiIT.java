@@ -1,7 +1,6 @@
 package fr.imie.malah.tests.unitaire.api;
 
-import fr.imie.malah.tests.unitaire.api.model.DivideResult;
-import fr.imie.malah.tests.unitaire.api.model.MultiplyResult;
+import fr.imie.malah.tests.unitaire.api.model.Result;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static fr.imie.malah.tests.unitaire.api.Api.DIVIDE;
-import static fr.imie.malah.tests.unitaire.api.Api.MULTIPLY;
 import static fr.imie.malah.tests.unitaire.utils.TestUtils.toJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -24,6 +21,7 @@ public class ApiIT {
 
     private static final int NUMBER = 6;
     private static final int VALUE = 3;
+    private static final int IMC = NUMBER / (int) Math.pow(VALUE, 2);
 
     @Autowired
     private MockMvc mvc;
@@ -31,25 +29,44 @@ public class ApiIT {
     @Test
     public void shouldDivide() throws Exception {
 
-        DivideResult expectedDivideResult = DivideResult.builder().value(2).build();
+        Result expectedResult = Result.builder()
+                .value(2)
+                .build();
 
-        String url = DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.BY + "}", String.valueOf(VALUE));
+        String url = Api.DIVIDE.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.BY + "}", String.valueOf(VALUE));
 
         mvc.perform(get(url))
                 .andExpect(status().isOk())
-                .andExpect(content().json(toJson(expectedDivideResult)));
+                .andExpect(content().json(toJson(expectedResult)));
     }
 
     @Test
     public void shouldMultiply() throws Exception {
 
-        MultiplyResult expectedMultiplyResult = MultiplyResult.builder().value(18).build();
+        Result expectedResult = Result.builder()
+                .value(18)
+                .build();
 
-        String url = MULTIPLY.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.FACTOR + "}", String.valueOf(VALUE));
+        String url = Api.MULTIPLY.replace("{" + Api.NUMBER + "}", String.valueOf(NUMBER)).replace("{" + Api.FACTOR + "}", String.valueOf(VALUE));
 
         mvc.perform(get(url))
                 .andExpect(status().isOk())
-                .andExpect(content().json(toJson(expectedMultiplyResult)));
+                .andExpect(content().json(toJson(expectedResult)));
+
+    }
+
+    @Test
+    public void shouldCalculateImc() throws Exception {
+
+        Result expectedResult = Result.builder()
+                .value(IMC)
+                .build();
+
+        String url = Api.IMC.replace("{" + Api.WEIGHT + "}", String.valueOf(NUMBER)).replace("{" + Api.HEIGHT + "}", String.valueOf(VALUE));
+
+        mvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(content().json(toJson(expectedResult)));
 
     }
 }
