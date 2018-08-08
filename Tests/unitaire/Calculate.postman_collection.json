@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "65e9041a-844d-4132-b903-6412d76140fa",
+		"name": "Calculate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "f711dcc6-a4e3-433a-bcc4-2ccd31661303",
+			"name": "Divide Test 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "962f6606-7014-40f0-894b-04a2e37b4a1b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"{\\\"value\\\":3}\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/calculate/divide/18/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculate",
+						"divide",
+						"18",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "4f9ef940-d06f-479b-af54-fdf5a7c3a528",
+			"name": "Divide Test 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae181d9c-1cf1-4f15-8d93-520b1b6d4462",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"{\\\"value\\\":2}\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/calculate/divide/17/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calculate",
+						"divide",
+						"17",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
