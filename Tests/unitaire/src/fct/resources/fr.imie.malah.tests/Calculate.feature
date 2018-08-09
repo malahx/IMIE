@@ -6,7 +6,7 @@ Feature: Calculate an IMC
     Then The front page is displayed
     When The user clicks on Calculate
     Then The IMC form is displayed
-    When The user selects the <1> gender
+    When The user selects the <1>'s gender
     And The user fill the height box with <170>
     And The user fill the weight box with <60>
     And The user fill the age box with <20>

@@ -46,7 +46,7 @@ public class CalculateTest {
         assertThat(driver.getTitle()).isEqualTo("Calcul de l'IMC, faites le test - CalculerSonIMC");
     }
 
-    @When("^The user selects the <(\\d+)> gender$")
+    @When("^The user selects the <(\\d+)>'s gender$")
     public void theUserSelectsWomenGender(int gender) {
         new Select(driver.findElement(new By.ById("sexe"))).selectByIndex(gender);
     }
