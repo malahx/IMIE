@@ -14,8 +14,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.IOException;
 
-import static fr.imie.malah.tests.api.Api.*;
 import static fr.imie.malah.tests.TestData.createResponse;
+import static fr.imie.malah.tests.api.Api.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;

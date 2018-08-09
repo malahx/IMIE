@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class SpringContextTest {
 
     @Test
-    public void shouldStart(){
+    public void shouldStart() {
 
     }
 }
