@@ -120,5 +120,22 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.11.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.fluentlenium:fluentlenium-junit:3.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.fluentlenium:fluentlenium-core:3.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.atteo.classindex:classindex:3.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.fluentlenium:fluentlenium-cucumber:3.6.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-core:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-jvm-deps:1.0.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:gherkin:5.0.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:tag-expressions:1.1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-junit:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java8:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-java:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.jodah:typetools:0.5.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.cucumber:cucumber-picocontainer:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.picocontainer:picocontainer:2.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.fluentlenium:fluentlenium-assertj:3.6.1" level="project" />
   </component>
 </module>

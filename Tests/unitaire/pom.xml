@@ -20,6 +20,7 @@
         <failsafe.version>2.20.1</failsafe.version>
         <cucumber.version>1.2.5</cucumber.version>
         <seleniumhq.version>3.11.0</seleniumhq.version>
+        <fluentlenium.version>3.6.1</fluentlenium.version>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -93,6 +94,24 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
             <version>${seleniumhq.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentlenium</groupId>
+            <artifactId>fluentlenium-junit</artifactId>
+            <version>${fluentlenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentlenium</groupId>
+            <artifactId>fluentlenium-cucumber</artifactId>
+            <version>${fluentlenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentlenium</groupId>
+            <artifactId>fluentlenium-assertj</artifactId>
+            <version>${fluentlenium.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

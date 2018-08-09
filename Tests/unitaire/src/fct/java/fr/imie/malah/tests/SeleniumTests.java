@@ -15,7 +15,7 @@ public class SeleniumTests {
 
     private static final String BROWSER_PATH = "/usr/bin/chromium";
 
-    public static SeleniumTests instance;
+    private static SeleniumTests instance;
 
     public static SeleniumTests getInstance() {
         if (instance == null || instance.driver == null) {
