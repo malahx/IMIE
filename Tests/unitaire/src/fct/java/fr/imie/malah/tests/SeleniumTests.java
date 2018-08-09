@@ -18,7 +18,7 @@ public class SeleniumTests {
     public static SeleniumTests instance;
 
     public static SeleniumTests getInstance() {
-        if (instance == null) {
+        if (instance == null || instance.driver == null) {
             synchronized (SeleniumTests.class) {
                 instance = new SeleniumTests();
             }
@@ -41,5 +41,12 @@ public class SeleniumTests {
                 .build();
 
         driver = new ChromeDriver(service, options);
+    }
+
+    public void quit() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }
