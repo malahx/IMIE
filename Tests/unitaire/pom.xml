@@ -123,13 +123,37 @@
                 <version>${build-helper-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>add-integration-test-source</id>
+                        <id>add-functional-test-source</id>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
                         <configuration>
                             <sources>
                                 <source>src/it/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-functional-resources-source</id>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/fct/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-integration-test-source</id>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/fct/java</source>
                             </sources>
                         </configuration>
                     </execution>
