@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     apt-get install -y jenkins
     echo "Jenkins link: http://127.0.0.1:8080"
     echo "Connect to jenkins, wait a password prompt"
-    echo "Go in the vagrant directory and put vagrant ssh"
-    echo "in the vagrant machine enter: sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+    echo "In cli, go to the vagrant directory and put: vagrant ssh"
+    echo "In the vagrant machine enter: sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
   SHELL
 end
