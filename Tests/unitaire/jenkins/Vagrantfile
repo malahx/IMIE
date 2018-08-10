@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     echo "deb http://pkg.jenkins-ci.org/debian-stable binary/" > /etc/apt/sources.list.d/jenkins.list
     apt-get update
     apt-get upgrade
-    apt-get install -y default-jre maven gradle git
+    apt-get install -y default-jre default-jdk maven gradle git
     apt-get install -y jenkins
     echo "Jenkins link: http://127.0.0.1:8080"
     echo "Connect to jenkins, wait a password prompt"
