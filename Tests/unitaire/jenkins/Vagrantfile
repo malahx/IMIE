@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "debian/stretch64"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, host_ip: "127.0.0.1"
+  config.vm.provision "shell", inline: <<-SHELL
+    wget -q -O - http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key | apt-key add
+    echo "deb http://pkg.jenkins-ci.org/debian-stable binary/" > /etc/apt/sources.list.d/jenkins.list
+    apt-get update
+    apt-get upgrade
+    apt-get install -y default-jre
+    apt-get install -y jenkins
+    echo "Jenkins link: http://127.0.0.1:8080"
+    echo "Connect to jenkins, wait a password prompt"
+    echo "Go in the vagrant directory and put vagrant ssh"
+    echo "in the vagrant machine enter: sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
+  SHELL
+end
